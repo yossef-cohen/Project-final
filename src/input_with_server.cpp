@@ -17,29 +17,12 @@ void ServerWithInput::getLinesFromJSON() {
     buffer << file.rdbuf();
     std::string json_string = buffer.str();
 
-    // Optional: Validate JSON structure
-    try {
-        nlohmann::json::parse(json_string);
-    }
-    catch (nlohmann::json::parse_error& e) {
-        std::cerr << "JSON parsing error: " << e.what() << std::endl;
-        svr_.stop();
-        return;
-    }
-
     {
         std::lock_guard<std::mutex> lock(content_mutex_);
         server_content_ = std::move(json_string);
     }
 
     std::cout << "JSON file loaded. Size: " << server_content_.size() << " bytes." << std::endl;
-
-    // Keep the server running
-    while (server_running) {
-        std::this_thread::sleep_for(std::chrono::seconds(1));
-    }
-
-    svr_.stop();
 }
 
 void ServerWithInput::httpServer() {
@@ -59,4 +42,8 @@ void ServerWithInput::start() {
     std::thread input_thread(&ServerWithInput::getLinesFromJSON, this);
     server_thread.join();
     input_thread.join();
+}
+
+void ServerWithInput::stopTheServer() {
+    svr_.stop();
 }
