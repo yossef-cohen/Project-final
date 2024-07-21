@@ -33,17 +33,19 @@ void DownloadThread::operator()(CommonObjects& common)
 
                     movie.Title = item.value("Title", "");
 
-                    if (item.contains("Year") && item["Year"].is_number_integer())
+                    if (item.contains("Year") && item["Year"].is_string()) {
+         
                         movie.Year = item["Year"].get<std::string>();
+                    }
                     else
                         movie.Year = "";
 
-                    if (item.contains("Duration (min)") && item["Duration (min)"].is_number())
-                        movie.Duration = item["Duration (min)"].get<std::string>();
+                    if (item.contains("Duration") && item["Duration"].is_string())
+                        movie.Duration = item["Duration"].get<std::string>();
                     else
                         movie.Duration = "";
 
-                    if (item.contains("Rating") && item["Rating"].is_number())
+                    if (item.contains("Rating") && item["Rating"].is_string())
                         movie.Rating = item["Rating"].get<std::string>();
                     else
                         movie.Rating = "";
@@ -89,7 +91,7 @@ void DownloadThread::operator()(CommonObjects& common)
     {
         std::cerr << "HTTP request failed or returned non-200 status" << std::endl;
     }
-    common.data_ready = true;
+    //common.data_ready = true;
 }
 
 
