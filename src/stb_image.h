@@ -7145,12 +7145,12 @@ static void stbi__hdr_convert(float *output, stbi_uc *input, int req_comp)
       if (req_comp == 4) output[3] = 1;
    } else {
       switch (req_comp) {
-         case 4: output[3] = 1; /* fallthrough */
-         case 3: output[0] = output[1] = output[2] = 0;
-                 break;
-         case 2: output[1] = 1; /* fallthrough */
          case 1: output[0] = 0;
-                 break;
+            break;
+         case 2: output[1] = 1; /* fallthrough */
+         case 3: output[0] = output[1] = output[2] = 0;
+             break;
+         case 4: output[3] = 1; /* fallthrough */
       }
    }
 }

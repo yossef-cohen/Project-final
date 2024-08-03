@@ -2,94 +2,21 @@
 #include "../vendor/ImGui/imgui.h"
 #include "GuiMain.h"
 #include <iostream>
-#include <unordered_map>
+#include <algorithm>
 #include <curl/curl.h>
-#include <GL/glu.h>
-#include <GL/gl.h>
-#include <thread>
-#include <mutex>
-#include <queue>
-#include <atomic>
+#include <vector>
 #define STB_IMAGE_IMPLEMENTATION
-#include "stb_image.h"
+#include <stb_image.h>
 
-
-struct ImageData {
-    unsigned char* data;
-    int width;
-    int height;
-    int channels;
-    GLuint texture;
-    std::atomic<bool> isLoading{ false };
-    std::atomic<bool> isLoaded{ false };
-};
-
-std::unordered_map<std::string, std::shared_ptr<ImageData>> g_TextureCache;
-std::mutex g_TextureCacheMutex;
-std::queue<std::string> g_ImageLoadQueue;
-std::mutex g_ImageLoadQueueMutex;
-std::atomic<bool> g_ImageLoaderRunning{ true };
-
-size_t WriteCallback(void* contents, size_t size, size_t nmemb, void* userp) {
-    ((std::string*)userp)->append((char*)contents, size * nmemb);
-    return size * nmemb;
+void DrawThread::operator()(CommonObjects& common) {
+    GuiMain(DrawFunction, &common);
+    common.exit_flag = true;
 }
 
-void LoadTextureFromURL(const std::string& url, std::shared_ptr<ImageData> imageData) {
-    CURL* curl = curl_easy_init();
-    if (curl) {
-        std::string response;
-        curl_easy_setopt(curl, CURLOPT_URL, url.c_str());
-        curl_easy_setopt(curl, CURLOPT_WRITEFUNCTION, WriteCallback);
-        curl_easy_setopt(curl, CURLOPT_WRITEDATA, &response);
-        CURLcode res = curl_easy_perform(curl);
-        curl_easy_cleanup(curl);
 
-        if (res == CURLE_OK) {
-            int width, height, channels;
-            unsigned char* data = stbi_load_from_memory(
-                (unsigned char*)response.c_str(), response.size(),
-                &width, &height, &channels, 4);
 
-            if (data) {
-                imageData->data = data;
-                imageData->width = width;
-                imageData->height = height;
-                imageData->channels = 4;
-                imageData->isLoaded = true;
-            }
-        }
-    }
-    imageData->isLoading = false;
-}
-
-void ImageLoaderThread() {
-    while (g_ImageLoaderRunning) {
-        std::string url;
-        {
-            std::lock_guard<std::mutex> lock(g_ImageLoadQueueMutex);
-            if (!g_ImageLoadQueue.empty()) {
-                url = g_ImageLoadQueue.front();
-                g_ImageLoadQueue.pop();
-            }
-        }
-
-        if (!url.empty()) {
-            std::shared_ptr<ImageData> imageData;
-            {
-                std::lock_guard<std::mutex> lock(g_TextureCacheMutex);
-                imageData = g_TextureCache[url];
-            }
-            LoadTextureFromURL(url, imageData);
-        }
-        else {
-            std::this_thread::sleep_for(std::chrono::milliseconds(100));
-        }
-    }
-}
-
-void DrawAppWindow(void* common_ptr) {
-    auto common = reinterpret_cast<CommonObjects*>(common_ptr);
+void DrawThread::DrawFunction(void* common_ptr) {
+    auto common = static_cast<CommonObjects*>(common_ptr);
     if (!common) {
         std::cerr << "CommonObjects pointer is null" << std::endl;
         return;
@@ -98,12 +25,27 @@ void DrawAppWindow(void* common_ptr) {
     ImGui::Begin("Movie Catalog", nullptr, ImGuiWindowFlags_NoScrollbar);
 
     static char buff[200];
+    static std::vector<Movie> filteredMovies;
+
     ImGui::InputText("Search", buff, sizeof(buff));
     ImGui::SameLine();
     if (ImGui::Button("Get")) {
-        common->url = buff;
+        std::string searchStr = toLower(std::string(buff));
+        filteredMovies.clear();
+        for (const auto& movie : common->Movies) {
+            std::string movieTitleLower = toLower(movie.Title);
+            if (movieTitleLower.find(searchStr) != std::string::npos) {
+                filteredMovies.push_back(movie);
+            }
+        }
     }
 
+    Draw(common, filteredMovies);
+
+    ImGui::End();
+}
+
+void DrawThread::Draw(CommonObjects* common, const std::vector<Movie>& filteredMovies) {
     if (common->data_ready) {
         ImGui::BeginChild("ScrollingRegion", ImVec2(0, 0), false, ImGuiWindowFlags_HorizontalScrollbar);
 
@@ -112,8 +54,10 @@ void DrawAppWindow(void* common_ptr) {
         float poster_width = ImGui::GetContentRegionAvail().x / movies_per_row - 10;
         float poster_height = poster_width * 1.5f;
 
-        for (int i = 0; i < common->Movies.size(); i++) {
-            const auto& movie = common->Movies[i];
+        const auto& movies_to_display = filteredMovies.empty() ? common->Movies : filteredMovies;
+
+        for (int i = 0; i < movies_to_display.size(); i++) {
+            const auto& movie = movies_to_display[i];
 
             ImGui::PushID(i);
             if (i % movies_per_row != 0) {
@@ -122,41 +66,32 @@ void DrawAppWindow(void* common_ptr) {
 
             ImGui::BeginGroup();
 
-            std::shared_ptr<ImageData> imageData;
-            {
-                std::lock_guard<std::mutex> lock(g_TextureCacheMutex);
-                if (g_TextureCache.find(movie.Poster) == g_TextureCache.end()) {
-                    g_TextureCache[movie.Poster] = std::make_shared<ImageData>();
-                    std::lock_guard<std::mutex> queueLock(g_ImageLoadQueueMutex);
-                    g_ImageLoadQueue.push(movie.Poster);
+           
+
+            // Download the image data
+            std::vector<unsigned char> imageData = DownloadImage("https://example.com/yourimage.png");
+
+            // Load the texture from the image data
+            int texWidth, texHeight;
+            GLuint textureID = LoadTextureFromMemory(imageData.data(), imageData.size(), &texWidth, &texHeight);
+
+            if (textureID != 0) {
+                // Render the image button
+                if (ImGui::ImageButton((void*)(intptr_t)textureID, ImVec2(texWidth, texHeight))) {
+                    // Handle button click
                 }
-                imageData = g_TextureCache[movie.Poster];
             }
+            else
+                // Placeholder for image
+                ImGui::Button("No image", ImVec2(poster_width, poster_height));
 
-            ImTextureID tex_id = reinterpret_cast<ImTextureID>(0);
-            if (imageData->isLoaded && imageData->texture == 0) {
-                glGenTextures(1, &imageData->texture);
-                glBindTexture(GL_TEXTURE_2D, imageData->texture);
-                glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
-                glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-                glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, imageData->width, imageData->height, 0,
-                    GL_RGBA, GL_UNSIGNED_BYTE, imageData->data);
-                glBindTexture(GL_TEXTURE_2D, 0);
-                stbi_image_free(imageData->data);
-                imageData->data = nullptr;
-            }
-
-            if (imageData->isLoaded) {
-                tex_id = reinterpret_cast<ImTextureID>(static_cast<intptr_t>(imageData->texture));
-            }
-
-            if (ImGui::ImageButton(tex_id, ImVec2(poster_width, poster_height), ImVec2(0, 0), ImVec2(1, 1), 0)) {
+            if (ImGui::IsItemHovered() && ImGui::IsMouseClicked(0)) {
                 ImGui::OpenPopup("MovieDescription");
             }
+
             ImGui::TextWrapped("%s", movie.Title.c_str());
-            ImGui::Text("%s | %s", movie.Rating.c_str(), movie.Duration.c_str());
-            ImGui::Text("%s", movie.Genre.c_str());
-            ImGui::EndGroup();
+            ImGui::Text("Rating:%s | Duration:%s", movie.Rating.c_str(), movie.Duration.c_str());
+            ImGui::Text("Genre:%s", movie.Genre.c_str());
 
             if (ImGui::BeginPopup("MovieDescription")) {
                 ImGui::Text("%s", movie.Title.c_str());
@@ -165,25 +100,82 @@ void DrawAppWindow(void* common_ptr) {
                 ImGui::EndPopup();
             }
 
+            ImGui::EndGroup();
             ImGui::PopID();
 
             float last_button_x2 = ImGui::GetItemRectMax().x;
             float next_button_x2 = last_button_x2 + ImGui::GetStyle().ItemSpacing.x + poster_width;
-            if (i + 1 < common->Movies.size() && next_button_x2 < window_visible_x2) {
+            if (i + 1 < movies_to_display.size() && next_button_x2 < window_visible_x2) {
                 ImGui::SameLine();
             }
         }
 
         ImGui::EndChild();
     }
-
-    ImGui::End();
 }
 
-void DrawThread::operator()(CommonObjects& common) {
-    std::thread imageLoaderThread(ImageLoaderThread);
-    GuiMain(DrawAppWindow, &common);
-    g_ImageLoaderRunning = false;
-    imageLoaderThread.join();
-    common.exit_flag = true;
+std::string DrawThread::toLower(const std::string& str) {
+    std::string lowerStr = str;
+    std::transform(lowerStr.begin(), lowerStr.end(), lowerStr.begin(),
+        [](unsigned char c) { return std::tolower(c); });
+    return lowerStr;
+}
+
+// Callback function to write data into a vector
+size_t WriteCallback(void* contents, size_t size, size_t nmemb, void* userp) {
+    ((std::vector<unsigned char>*)userp)->insert(((std::vector<unsigned char>*)userp)->end(), (unsigned char*)contents, (unsigned char*)contents + size * nmemb);
+    return size * nmemb;
+}
+
+std::vector<unsigned char> DownloadImage(const char* url) {
+    CURL* curl;
+    CURLcode res;
+    std::vector<unsigned char> buffer;
+
+    curl_global_init(CURL_GLOBAL_DEFAULT);
+    curl = curl_easy_init();
+    if (curl) {
+        curl_easy_setopt(curl, CURLOPT_URL, url);
+        curl_easy_setopt(curl, CURLOPT_WRITEFUNCTION, WriteCallback);
+        curl_easy_setopt(curl, CURLOPT_WRITEDATA, &buffer);
+        res = curl_easy_perform(curl);
+        if (res != CURLE_OK) {
+            // Handle error
+        }
+        curl_easy_cleanup(curl);
+    }
+    curl_global_cleanup();
+
+    return buffer;
+}
+
+
+
+
+GLuint LoadTextureFromMemory(const unsigned char* data, int dataSize, int* width, int* height) {
+    int texWidth, texHeight, channels;
+    unsigned char* imgData = stbi_load_from_memory(data, dataSize, &texWidth, &texHeight, &channels, 4); // Force RGBA
+
+    if (imgData == nullptr) {
+        // Handle error
+        return 0;
+    }
+
+    GLuint texture;
+    glGenTextures(1, &texture);
+    glBindTexture(GL_TEXTURE_2D, texture);
+    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, texWidth, texHeight, 0, GL_RGBA, GL_UNSIGNED_BYTE, imgData);
+    glGenerateMipmap(GL_TEXTURE_2D);
+
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+
+    stbi_image_free(imgData);
+
+    if (width) *width = texWidth;
+    if (height) *height = texHeight;
+
+    return texture;
 }

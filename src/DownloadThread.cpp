@@ -94,9 +94,6 @@ void DownloadThread::operator()(CommonObjects& common)
     //common.data_ready = true;
 }
 
-
-
-
 void DownloadThread::SetUrl(std::string_view new_url)
 {
     _download_url = new_url;

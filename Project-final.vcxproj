@@ -107,14 +107,14 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>C:\Users\Admin\OneDrive\שולחן העבודה\Programming\year 2 semester 2\final-project\another-try\Project-final\HttpSrc\openssl\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\Users\Admin\OneDrive\שולחן העבודה\Programming\year 2 semester 2\final-project\another-try\Project-final\HttpSrc\openssl\include;C:\Users\Admin\OneDrive\שולחן העבודה\Programming\year 2 semester 2\final-project\another-try\Project-final\curl-8.8.0_3-win64-mingw\include;C:\Program Files %28x86%29\Windows Kits\10\Include\10.0.22621.0\um\gl;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpp20</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>d3d11.lib;libcrypto.lib;libssl.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <AdditionalLibraryDirectories>C:\Users\Admin\OneDrive\שולחן העבודה\Programming\year 2 semester 2\final-project\another-try\Project-final\HttpSrc\openssl\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>d3d11.lib;libcrypto.lib;libssl.lib;libcurl.dll.a;opengl32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>C:\Users\Admin\OneDrive\שולחן העבודה\Programming\year 2 semester 2\final-project\another-try\Project-final\HttpSrc\openssl\lib;C:\Users\Admin\OneDrive\שולחן העבודה\Programming\year 2 semester 2\final-project\another-try\Project-final\curl-8.8.0_3-win64-mingw\lib;C:\Program Files %28x86%29\Windows Kits\10\Include\10.0.22621.0\um\gl;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -153,7 +153,10 @@
     <ClInclude Include="src\DrawThread.h" />
     <ClInclude Include="src\GuiMain.h" />
     <ClInclude Include="src\httplib.h" />
+    <ClInclude Include="src\ImageLoaderr.h" />
     <ClInclude Include="src\input_with_server.h" />
+    <ClInclude Include="src\json.hpp" />
+    <ClInclude Include="src\stb_image.h" />
     <ClInclude Include="vendor\ImGui\backends\imgui_impl_dx11.h" />
     <ClInclude Include="vendor\ImGui\backends\imgui_impl_win32.h" />
     <ClInclude Include="vendor\ImGui\imconfig.h" />
