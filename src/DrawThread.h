@@ -3,7 +3,7 @@
 #include <vector>
 #include <string>
 
-#include <C:\Users\dani0\source\repos\Project-final\HttpSrc\glew-2.1.0\include\GL\glew.h>
+#include <../GL/glew.h>
 #include <GL.h>
 #include <stb_image.h>
 class DrawThread

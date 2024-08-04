@@ -51,7 +51,13 @@
     <ClCompile Include="vendor\ImGui\backends\imgui_impl_dx11.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="vendor\ImGui\backends\imgui_impl_win32.cpp">
+    <ClCompile Include="vendor\ImGui\backends\imgui_impl_glfw.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="vendor\ImGui\backends\imgui_impl_opengl3.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\ShaderUtils.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -104,16 +110,13 @@
     <ClInclude Include="vendor\ImGui\backends\imgui_impl_dx11.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="vendor\ImGui\backends\imgui_impl_win32.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="src\json.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="HttpSrc\glew-2.1.0\include\GL\glew.h">
+    <ClInclude Include="HttpSrc\glew-2.1.0\include\GL\eglew.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="HttpSrc\glew-2.1.0\include\GL\eglew.h">
+    <ClInclude Include="HttpSrc\glew-2.1.0\include\GL\glew.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="HttpSrc\glew-2.1.0\include\GL\glxew.h">
@@ -122,9 +125,27 @@
     <ClInclude Include="HttpSrc\glew-2.1.0\include\GL\wglew.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="vendor\ImGui\backends\imgui_impl_glfw.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="vendor\ImGui\backends\imgui_impl_opengl3.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\ShaderUtils.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\ConnectedApp.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\ImageCache.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="imgui.ini" />
+    <None Include="libssl-3-x64.dll" />
+    <None Include="libcrypto-3-x64.dll" />
+    <None Include="movie_data.json" />
     <None Include="HttpSrc\glew-2.1.0\doc\advanced.html" />
     <None Include="HttpSrc\glew-2.1.0\doc\basic.html" />
     <None Include="HttpSrc\glew-2.1.0\doc\build.html" />
@@ -135,8 +156,8 @@
     <None Include="HttpSrc\glew-2.1.0\doc\install.html" />
     <None Include="HttpSrc\glew-2.1.0\doc\log.html" />
     <None Include="HttpSrc\glew-2.1.0\doc\wglew.html" />
-    <None Include="libssl-3-x64.dll" />
-    <None Include="libcrypto-3-x64.dll" />
-    <None Include="movie_data.json" />
+    <None Include="vendor\ImGui\backends\vulkan\glsl_shader.frag" />
+    <None Include="vendor\ImGui\backends\vulkan\glsl_shader.vert" />
+    <None Include="HttpSrc\cacert.pem" />
   </ItemGroup>
 </Project>

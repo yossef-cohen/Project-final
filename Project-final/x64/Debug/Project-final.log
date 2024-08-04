@@ -1,20 +1,8 @@
-﻿  ConnectedApp.cpp
-  DownloadThread.cpp
-  DrawThread.cpp
-C:\Users\dani0\source\repos\Project-final\src\DrawThread.cpp(78,86): warning C4267: 'argument': conversion from 'size_t' to 'int', possible loss of data
-C:\Users\dani0\source\repos\Project-final\src\DrawThread.cpp(82,85): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-C:\Users\dani0\source\repos\Project-final\src\DrawThread.cpp(82,75): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-  GuiMain.cpp
-  input_with_server.cpp
-  imgui_impl_dx11.cpp
-  imgui_impl_win32.cpp
-  imgui.cpp
-  imgui_demo.cpp
-  imgui_draw.cpp
-  imgui_tables.cpp
-  imgui_widgets.cpp
-  imgui_stdlib.cpp
-  Generating Code...
+﻿  DrawThread.cpp
+C:\Users\dani0\source\repos\Project-final\src\ImageCache.h(33,82): warning C4267: 'argument': conversion from 'size_t' to 'int', possible loss of data
+  (compiling source file 'src/DrawThread.cpp')
+  
+LINK : warning LNK4098: defaultlib 'MSVCRT' conflicts with use of other libs; use /NODEFAULTLIB:library
   Project-final.vcxproj -> C:\Users\dani0\source\repos\Project-final\x64\Debug\Project-final.exe
   'pwsh.exe' is not recognized as an internal or external command,
   operable program or batch file.

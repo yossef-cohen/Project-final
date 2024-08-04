@@ -1,22 +1,47 @@
-#include <iostream>
-#include <thread>
-#include "CommonObject.h"
+#include "ConnectedApp.h"
+#include "GuiMain.h"
 #include "DrawThread.h"
-#include "DownloadThread.h"
-#include "input_with_server.h"
+#include <iostream>
+#include <DownloadThread.h>
+#include <thread>
 
+ConnectedApp::ConnectedApp() {
+    Initialize();
+}
 
-int main()
-{
-    CommonObjects common;
-    DrawThread draw;
+ConnectedApp::~ConnectedApp() {
+    Cleanup();
+}
 
-    auto draw_th = std::jthread([&] {draw(common); });
+void ConnectedApp::Initialize() {
+    // Perform any necessary initialization for CommonObjects
+    commonObjects.data_ready = false;
+}
 
-    DownloadThread down;
-    auto down_th = std::jthread([&] {down(common); });
-    down.SetUrl("http://....");
-    std::cout << "running...\n";
-    down_th.join();
-    draw_th.join();
+void ConnectedApp::Cleanup() {
+    // Perform any necessary cleanup for CommonObjects
+}
+
+void ConnectedApp::Run() {
+    // Initialize and start the download thread
+    DownloadThread downloadThread;
+    downloadThread.SetUrl("http://example.com/movies"); // Set your URL
+    std::thread downloadThreadInstance([&]() {
+        downloadThread(commonObjects);
+        });
+
+    // Run the GUI
+    int guiResult = GuiMain(DrawThread::DrawFunction, &commonObjects);
+    if (guiResult != 0) {
+        std::cerr << "GUI Main failed with result code: " << guiResult << std::endl;
+    }
+
+    // Wait for download thread to complete
+    downloadThreadInstance.join();
+}
+
+int main() {
+    ConnectedApp app;
+    app.Run();
+    return 0;
 }

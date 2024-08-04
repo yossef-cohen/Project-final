@@ -72,11 +72,11 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <IncludePath>C:\Users\dani0\source\repos\Project-final\vendor\ImGui;C:\Users\dani0\source\repos\Project-final\vendor\ImGui\backends</IncludePath>
-    <LibraryPath>$(LibraryPath)</LibraryPath>
+    <LibraryPath>C:\Users\dani0\source\repos\Project-final\HttpSrc\glew-2.1.0\lib;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <IncludePath>C:\Users\dani0\source\repos\Project-final\vendor\ImGui;C:\Users\dani0\source\repos\Project-final\vendor\ImGui\backends</IncludePath>
-    <LibraryPath>$(LibraryPath)</LibraryPath>
+    <LibraryPath>C:\Users\dani0\source\repos\Project-final\HttpSrc\glew-2.1.0\lib;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Label="Vcpkg">
     <VcpkgEnableManifest>true</VcpkgEnableManifest>
@@ -115,7 +115,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>C:\Users\dani0\source\repos\Project-final\HttpSrc\glew-2.1.0\include\GL;C:\Users\dani0\source\repos\Project-final\openssl-3\x64\include;C:\Users\dani0\source\repos\Project-final\curl-8.8.0_3-win64-mingw\include;C:\Users\dani0\source\repos\Project-final\src;C:\Program Files %28x86%29\Windows Kits\10\Include\10.0.22621.0\um\gl</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\Users\dani0\source\repos\Project-final\HttpSrc\glew-2.1.0\include\GL;C:\Users\dani0\source\repos\Project-final\openssl-3\x64\include;C:\Users\dani0\source\repos\Project-final\curl-8.8.0_3-win64-mingw\include;C:\Users\dani0\source\repos\Project-final\src;C:\Program Files %28x86%29\Windows Kits\10\Include\10.0.22621.0\um\gl;C:\Users\dani0\source\repos\Project-final\HttpSrc\glfw-3.4.bin.WIN64\glfw-3.4.bin.WIN64\include</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpp20</LanguageStandard>
     </ClCompile>
     <Link>
@@ -125,8 +125,8 @@
 ;libcrypto.lib;
 libssl.lib;
 libcurl.dll.a;
-opengl32.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <AdditionalLibraryDirectories>C:\Users\dani0\source\repos\Project-final\HttpSrc\glew-2.1.0\include;C:\Users\dani0\source\repos\Project-final\openssl-3\x64\lib;C:\Users\dani0\source\repos\Project-final\curl-8.8.0_3-win64-mingw\lib;C:\Program Files %28x86%29\Windows Kits\10\Include\10.0.22621.0\um\gl</AdditionalLibraryDirectories>
+opengl32.lib;glfw3.lib;glfw3dll.lib;glew32.lib;glew32s.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>C:\Users\dani0\source\repos\Project-final\HttpSrc\glew-2.1.0\include;C:\Users\dani0\source\repos\Project-final\openssl-3\x64\lib;C:\Users\dani0\source\repos\Project-final\curl-8.8.0_3-win64-mingw\lib;C:\Program Files %28x86%29\Windows Kits\10\Include\10.0.22621.0\um\gl;C:\Users\dani0\source\repos\Project-final\HttpSrc\glfw-3.4.bin.WIN64\glfw-3.4.bin.WIN64\lib-vc2019;C:\Users\dani0\source\repos\Project-final\HttpSrc\glew-2.1.0\lib\Release\x64</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -137,19 +137,19 @@ opengl32.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>C:\Users\dani0\source\repos\Project-final\HttpSrc\glew-2.1.0\include\GL;C:\Users\dani0\source\repos\Project-final\openssl-3\x64\include;C:\Users\dani0\source\repos\Project-final\curl-8.8.0_3-win64-mingw\include;C:\Users\dani0\source\repos\Project-final\src;C:\Program Files %28x86%29\Windows Kits\10\Include\10.0.22621.0\um\gl</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\Users\dani0\source\repos\Project-final\HttpSrc\glew-2.1.0\include\GL;C:\Users\dani0\source\repos\Project-final\openssl-3\x64\include;C:\Users\dani0\source\repos\Project-final\curl-8.8.0_3-win64-mingw\include;C:\Users\dani0\source\repos\Project-final\src;C:\Program Files %28x86%29\Windows Kits\10\Include\10.0.22621.0\um\gl;C:\Users\dani0\source\repos\Project-final\HttpSrc\glfw-3.4.bin.WIN64\glfw-3.4.bin.WIN64\include</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>C:\Users\dani0\source\repos\Project-final\HttpSrc\glew-2.1.0\include;C:\Users\dani0\source\repos\Project-final\openssl-3\x64\lib;C:\Users\dani0\source\repos\Project-final\curl-8.8.0_3-win64-mingw\lib;C:\Program Files %28x86%29\Windows Kits\10\Include\10.0.22621.0\um\gl</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>C:\Users\dani0\source\repos\Project-final\HttpSrc\glew-2.1.0\include;C:\Users\dani0\source\repos\Project-final\openssl-3\x64\lib;C:\Users\dani0\source\repos\Project-final\curl-8.8.0_3-win64-mingw\lib;C:\Program Files %28x86%29\Windows Kits\10\Include\10.0.22621.0\um\gl;C:\Users\dani0\source\repos\Project-final\HttpSrc\glfw-3.4.bin.WIN64\glfw-3.4.bin.WIN64\lib-vc2019;C:\Users\dani0\source\repos\Project-final\HttpSrc\glew-2.1.0\lib\Release\x64</AdditionalLibraryDirectories>
       <AdditionalDependencies>d3d11.lib
 ;libcrypto.lib;
 libssl.lib;
 libcurl.dll.a;
-opengl32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+opengl32.lib;glfw3.lib;glfw3dll.lib;glew32.lib;glew32s.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
@@ -158,8 +158,10 @@ opengl32.lib;%(AdditionalDependencies)</AdditionalDependencies>
     <ClCompile Include="src\DrawThread.cpp" />
     <ClCompile Include="src\GuiMain.cpp" />
     <ClCompile Include="src\input_with_server.cpp" />
+    <ClCompile Include="src\ShaderUtils.cpp" />
     <ClCompile Include="vendor\ImGui\backends\imgui_impl_dx11.cpp" />
-    <ClCompile Include="vendor\ImGui\backends\imgui_impl_win32.cpp" />
+    <ClCompile Include="vendor\ImGui\backends\imgui_impl_glfw.cpp" />
+    <ClCompile Include="vendor\ImGui\backends\imgui_impl_opengl3.cpp" />
     <ClCompile Include="vendor\ImGui\imgui.cpp" />
     <ClCompile Include="vendor\ImGui\imgui_demo.cpp" />
     <ClCompile Include="vendor\ImGui\imgui_draw.cpp" />
@@ -173,15 +175,19 @@ opengl32.lib;%(AdditionalDependencies)</AdditionalDependencies>
     <ClInclude Include="HttpSrc\glew-2.1.0\include\GL\glxew.h" />
     <ClInclude Include="HttpSrc\glew-2.1.0\include\GL\wglew.h" />
     <ClInclude Include="src\CommonObject.h" />
+    <ClInclude Include="src\ConnectedApp.h" />
     <ClInclude Include="src\DownloadThread.h" />
     <ClInclude Include="src\DrawThread.h" />
     <ClInclude Include="src\GuiMain.h" />
     <ClInclude Include="src\httplib.h" />
+    <ClInclude Include="src\ImageCache.h" />
     <ClInclude Include="src\input_with_server.h" />
     <ClInclude Include="src\json.hpp" />
+    <ClInclude Include="src\ShaderUtils.h" />
     <ClInclude Include="src\stb_image.h" />
     <ClInclude Include="vendor\ImGui\backends\imgui_impl_dx11.h" />
-    <ClInclude Include="vendor\ImGui\backends\imgui_impl_win32.h" />
+    <ClInclude Include="vendor\ImGui\backends\imgui_impl_glfw.h" />
+    <ClInclude Include="vendor\ImGui\backends\imgui_impl_opengl3.h" />
     <ClInclude Include="vendor\ImGui\imconfig.h" />
     <ClInclude Include="vendor\ImGui\imgui.h" />
     <ClInclude Include="vendor\ImGui\imgui_internal.h" />
@@ -192,6 +198,7 @@ opengl32.lib;%(AdditionalDependencies)</AdditionalDependencies>
     <ClInclude Include="vendor\ImGui\misc\single_file\imgui_single_file.h" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="HttpSrc\cacert.pem" />
     <None Include="HttpSrc\glew-2.1.0\doc\advanced.html" />
     <None Include="HttpSrc\glew-2.1.0\doc\basic.html" />
     <None Include="HttpSrc\glew-2.1.0\doc\build.html" />
@@ -206,6 +213,8 @@ opengl32.lib;%(AdditionalDependencies)</AdditionalDependencies>
     <None Include="libcrypto-3-x64.dll" />
     <None Include="libssl-3-x64.dll" />
     <None Include="movie_data.json" />
+    <None Include="vendor\ImGui\backends\vulkan\glsl_shader.frag" />
+    <None Include="vendor\ImGui\backends\vulkan\glsl_shader.vert" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

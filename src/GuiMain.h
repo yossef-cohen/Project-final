@@ -1,6 +1,11 @@
-#pragma once
+#ifndef GUIMAIN_H
+#define GUIMAIN_H
 
+#include <../GL/glew.h>
+#include <GLFW/glfw3.h>
+#include <imgui.h>
 
-using drawcallback = void(void*);
+void ApplyCustomStyle();
+int GuiMain(void (*drawfunction)(void*), void* obj_ptr);
 
-int GuiMain(drawcallback drawfunction, void* obj_ptr);
+#endif // GUIMAIN_H

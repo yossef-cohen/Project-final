@@ -1,3 +1,8 @@
+
+
+
+
+#include "ImageCache.h"
 #include "DrawThread.h"
 #include "../vendor/ImGui/imgui.h"
 #include "GuiMain.h"
@@ -6,7 +11,7 @@
 #include <curl/curl.h>
 #include <vector>
 #define STB_IMAGE_IMPLEMENTATION
-#include <C:\Users\dani0\source\repos\Project-final\HttpSrc\glew-2.1.0\include\GL\glew.h>
+#include <../GL/glew.h>
 #include <GL.h>
 #include <stb_image.h>
 
@@ -48,6 +53,8 @@ void DrawThread::DrawFunction(void* common_ptr) {
 }
 
 void DrawThread::Draw(CommonObjects* common, const std::vector<Movie>& filteredMovies) {
+    static ImageCache imageCache;
+
     if (common->data_ready) {
         ImGui::BeginChild("ScrollingRegion", ImVec2(0, 0), false, ImGuiWindowFlags_HorizontalScrollbar);
 
@@ -68,24 +75,16 @@ void DrawThread::Draw(CommonObjects* common, const std::vector<Movie>& filteredM
 
             ImGui::BeginGroup();
 
-
-
-            // Download the image data
-            std::vector<unsigned char> imageData = DownloadImage("https://example.com/yourimage.png");
-
-            // Load the texture from the image data
-            int texWidth, texHeight;
-            GLuint textureID = LoadTextureFromMemory(imageData.data(), imageData.size(), &texWidth, &texHeight);
-
+            // Get the image from the cache
+            GLuint textureID = imageCache.GetTexture(movie.Poster);
             if (textureID != 0) {
-                // Render the image button
-                if (ImGui::ImageButton((void*)(intptr_t)textureID, ImVec2(texWidth, texHeight))) {
+                if (ImGui::ImageButton((void*)(intptr_t)textureID, ImVec2(poster_width, poster_height))) {
                     // Handle button click
                 }
             }
-            else
-                // Placeholder for image
+            else {
                 ImGui::Button("No image", ImVec2(poster_width, poster_height));
+            }
 
             if (ImGui::IsItemHovered() && ImGui::IsMouseClicked(0)) {
                 ImGui::OpenPopup("MovieDescription");
@@ -140,18 +139,24 @@ std::vector<unsigned char> DrawThread::DownloadImage(const char* url) {
         curl_easy_setopt(curl, CURLOPT_URL, url);
         curl_easy_setopt(curl, CURLOPT_WRITEFUNCTION, WriteCallback);
         curl_easy_setopt(curl, CURLOPT_WRITEDATA, &buffer);
+
+        // Set the path to the CA certificate bundle if necessary
+        curl_easy_setopt(curl, CURLOPT_CAINFO, "HttpSrc/cacert.pem");
+
         res = curl_easy_perform(curl);
         if (res != CURLE_OK) {
-            // Handle error
+            std::cerr << "curl_easy_perform() failed: " << curl_easy_strerror(res) << std::endl;
         }
+        else {
+            std::cout << "Image downloaded successfully. Size: " << buffer.size() << " bytes." << std::endl;
+        }
+
         curl_easy_cleanup(curl);
     }
     curl_global_cleanup();
 
     return buffer;
 }
-
-
 
 GLuint DrawThread::LoadTextureFromMemory(const unsigned char* data, int dataSize, int* width, int* height) {
     int texWidth, texHeight, channels;
@@ -179,3 +184,5 @@ GLuint DrawThread::LoadTextureFromMemory(const unsigned char* data, int dataSize
 
     return texture;
 }
+
+
