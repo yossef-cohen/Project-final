@@ -71,7 +71,15 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
-    <IncludePath>C:\Users\Admin\OneDrive\שולחן העבודה\Programming\year 2 semester 2\final-project\another-try\Project-final\vendor\ImGui;C:\Users\Admin\OneDrive\שולחן העבודה\Programming\year 2 semester 2\final-project\another-try\Project-final\vendor\ImGui\backends;$(IncludePath)</IncludePath>
+    <IncludePath>C:\Users\dani0\source\repos\Project-final\vendor\ImGui;C:\Users\dani0\source\repos\Project-final\vendor\ImGui\backends</IncludePath>
+    <LibraryPath>$(LibraryPath)</LibraryPath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <IncludePath>C:\Users\dani0\source\repos\Project-final\vendor\ImGui;C:\Users\dani0\source\repos\Project-final\vendor\ImGui\backends</IncludePath>
+    <LibraryPath>$(LibraryPath)</LibraryPath>
+  </PropertyGroup>
+  <PropertyGroup Label="Vcpkg">
+    <VcpkgEnableManifest>true</VcpkgEnableManifest>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -107,14 +115,18 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>C:\Users\Admin\OneDrive\שולחן העבודה\Programming\year 2 semester 2\final-project\another-try\Project-final\HttpSrc\openssl\include;C:\Users\Admin\OneDrive\שולחן העבודה\Programming\year 2 semester 2\final-project\another-try\Project-final\curl-8.8.0_3-win64-mingw\include;C:\Program Files %28x86%29\Windows Kits\10\Include\10.0.22621.0\um\gl;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\Users\dani0\source\repos\Project-final\HttpSrc\glew-2.1.0\include\GL;C:\Users\dani0\source\repos\Project-final\openssl-3\x64\include;C:\Users\dani0\source\repos\Project-final\curl-8.8.0_3-win64-mingw\include;C:\Users\dani0\source\repos\Project-final\src;C:\Program Files %28x86%29\Windows Kits\10\Include\10.0.22621.0\um\gl</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpp20</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>d3d11.lib;libcrypto.lib;libssl.lib;libcurl.dll.a;opengl32.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <AdditionalLibraryDirectories>C:\Users\Admin\OneDrive\שולחן העבודה\Programming\year 2 semester 2\final-project\another-try\Project-final\HttpSrc\openssl\lib;C:\Users\Admin\OneDrive\שולחן העבודה\Programming\year 2 semester 2\final-project\another-try\Project-final\curl-8.8.0_3-win64-mingw\lib;C:\Program Files %28x86%29\Windows Kits\10\Include\10.0.22621.0\um\gl;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>d3d11.lib
+;libcrypto.lib;
+libssl.lib;
+libcurl.dll.a;
+opengl32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>C:\Users\dani0\source\repos\Project-final\HttpSrc\glew-2.1.0\include;C:\Users\dani0\source\repos\Project-final\openssl-3\x64\lib;C:\Users\dani0\source\repos\Project-final\curl-8.8.0_3-win64-mingw\lib;C:\Program Files %28x86%29\Windows Kits\10\Include\10.0.22621.0\um\gl</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -125,12 +137,19 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
+      <AdditionalIncludeDirectories>C:\Users\dani0\source\repos\Project-final\HttpSrc\glew-2.1.0\include\GL;C:\Users\dani0\source\repos\Project-final\openssl-3\x64\include;C:\Users\dani0\source\repos\Project-final\curl-8.8.0_3-win64-mingw\include;C:\Users\dani0\source\repos\Project-final\src;C:\Program Files %28x86%29\Windows Kits\10\Include\10.0.22621.0\um\gl</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalLibraryDirectories>C:\Users\dani0\source\repos\Project-final\HttpSrc\glew-2.1.0\include;C:\Users\dani0\source\repos\Project-final\openssl-3\x64\lib;C:\Users\dani0\source\repos\Project-final\curl-8.8.0_3-win64-mingw\lib;C:\Program Files %28x86%29\Windows Kits\10\Include\10.0.22621.0\um\gl</AdditionalLibraryDirectories>
+      <AdditionalDependencies>d3d11.lib
+;libcrypto.lib;
+libssl.lib;
+libcurl.dll.a;
+opengl32.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
@@ -146,14 +165,18 @@
     <ClCompile Include="vendor\ImGui\imgui_draw.cpp" />
     <ClCompile Include="vendor\ImGui\imgui_tables.cpp" />
     <ClCompile Include="vendor\ImGui\imgui_widgets.cpp" />
+    <ClCompile Include="vendor\ImGui\misc\cpp\imgui_stdlib.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="HttpSrc\glew-2.1.0\include\GL\eglew.h" />
+    <ClInclude Include="HttpSrc\glew-2.1.0\include\GL\glew.h" />
+    <ClInclude Include="HttpSrc\glew-2.1.0\include\GL\glxew.h" />
+    <ClInclude Include="HttpSrc\glew-2.1.0\include\GL\wglew.h" />
     <ClInclude Include="src\CommonObject.h" />
     <ClInclude Include="src\DownloadThread.h" />
     <ClInclude Include="src\DrawThread.h" />
     <ClInclude Include="src\GuiMain.h" />
     <ClInclude Include="src\httplib.h" />
-    <ClInclude Include="src\ImageLoaderr.h" />
     <ClInclude Include="src\input_with_server.h" />
     <ClInclude Include="src\json.hpp" />
     <ClInclude Include="src\stb_image.h" />
@@ -165,6 +188,24 @@
     <ClInclude Include="vendor\ImGui\imstb_rectpack.h" />
     <ClInclude Include="vendor\ImGui\imstb_textedit.h" />
     <ClInclude Include="vendor\ImGui\imstb_truetype.h" />
+    <ClInclude Include="vendor\ImGui\misc\cpp\imgui_stdlib.h" />
+    <ClInclude Include="vendor\ImGui\misc\single_file\imgui_single_file.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="HttpSrc\glew-2.1.0\doc\advanced.html" />
+    <None Include="HttpSrc\glew-2.1.0\doc\basic.html" />
+    <None Include="HttpSrc\glew-2.1.0\doc\build.html" />
+    <None Include="HttpSrc\glew-2.1.0\doc\credits.html" />
+    <None Include="HttpSrc\glew-2.1.0\doc\glew.html" />
+    <None Include="HttpSrc\glew-2.1.0\doc\glxew.html" />
+    <None Include="HttpSrc\glew-2.1.0\doc\index.html" />
+    <None Include="HttpSrc\glew-2.1.0\doc\install.html" />
+    <None Include="HttpSrc\glew-2.1.0\doc\log.html" />
+    <None Include="HttpSrc\glew-2.1.0\doc\wglew.html" />
+    <None Include="imgui.ini" />
+    <None Include="libcrypto-3-x64.dll" />
+    <None Include="libssl-3-x64.dll" />
+    <None Include="movie_data.json" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

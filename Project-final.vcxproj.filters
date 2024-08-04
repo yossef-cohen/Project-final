@@ -33,12 +33,6 @@
     <ClCompile Include="vendor\ImGui\imgui.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="vendor\ImGui\backends\imgui_impl_dx11.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="vendor\ImGui\backends\imgui_impl_win32.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="src\ConnectedApp.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -49,6 +43,15 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\input_with_server.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="vendor\ImGui\misc\cpp\imgui_stdlib.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="vendor\ImGui\backends\imgui_impl_dx11.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="vendor\ImGui\backends\imgui_impl_win32.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -71,12 +74,6 @@
     <ClInclude Include="vendor\ImGui\imconfig.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="vendor\ImGui\backends\imgui_impl_dx11.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="vendor\ImGui\backends\imgui_impl_win32.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="src\CommonObject.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -92,17 +89,54 @@
     <ClInclude Include="src\GuiMain.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="src\input_with_server.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
     <ClInclude Include="src\stb_image.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\input_with_server.h">
+    <ClInclude Include="vendor\ImGui\misc\cpp\imgui_stdlib.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="vendor\ImGui\misc\single_file\imgui_single_file.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="vendor\ImGui\backends\imgui_impl_dx11.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="vendor\ImGui\backends\imgui_impl_win32.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\json.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\ImageLoaderr.h">
+    <ClInclude Include="HttpSrc\glew-2.1.0\include\GL\glew.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="HttpSrc\glew-2.1.0\include\GL\eglew.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="HttpSrc\glew-2.1.0\include\GL\glxew.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="HttpSrc\glew-2.1.0\include\GL\wglew.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="imgui.ini" />
+    <None Include="HttpSrc\glew-2.1.0\doc\advanced.html" />
+    <None Include="HttpSrc\glew-2.1.0\doc\basic.html" />
+    <None Include="HttpSrc\glew-2.1.0\doc\build.html" />
+    <None Include="HttpSrc\glew-2.1.0\doc\credits.html" />
+    <None Include="HttpSrc\glew-2.1.0\doc\glew.html" />
+    <None Include="HttpSrc\glew-2.1.0\doc\glxew.html" />
+    <None Include="HttpSrc\glew-2.1.0\doc\index.html" />
+    <None Include="HttpSrc\glew-2.1.0\doc\install.html" />
+    <None Include="HttpSrc\glew-2.1.0\doc\log.html" />
+    <None Include="HttpSrc\glew-2.1.0\doc\wglew.html" />
+    <None Include="libssl-3-x64.dll" />
+    <None Include="libcrypto-3-x64.dll" />
+    <None Include="movie_data.json" />
   </ItemGroup>
 </Project>

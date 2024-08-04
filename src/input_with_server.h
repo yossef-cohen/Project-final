@@ -15,7 +15,7 @@ private:
     httplib::Server svr_;
     std::string server_content_;
     std::mutex content_mutex_;
- 
+
 public:
     void getLinesFromJSON();
     void httpServer();

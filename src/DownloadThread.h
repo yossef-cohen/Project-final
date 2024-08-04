@@ -10,4 +10,3 @@ public:
 private:
 	std::string _download_url;
 };
-

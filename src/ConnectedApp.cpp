@@ -20,4 +20,3 @@ int main()
     down_th.join();
     draw_th.join();
 }
-

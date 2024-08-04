@@ -34,7 +34,7 @@ void DownloadThread::operator()(CommonObjects& common)
                     movie.Title = item.value("Title", "");
 
                     if (item.contains("Year") && item["Year"].is_string()) {
-         
+
                         movie.Year = item["Year"].get<std::string>();
                     }
                     else

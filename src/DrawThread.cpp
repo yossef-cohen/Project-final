@@ -6,6 +6,8 @@
 #include <curl/curl.h>
 #include <vector>
 #define STB_IMAGE_IMPLEMENTATION
+#include <C:\Users\dani0\source\repos\Project-final\HttpSrc\glew-2.1.0\include\GL\glew.h>
+#include <GL.h>
 #include <stb_image.h>
 
 void DrawThread::operator()(CommonObjects& common) {
@@ -66,7 +68,7 @@ void DrawThread::Draw(CommonObjects* common, const std::vector<Movie>& filteredM
 
             ImGui::BeginGroup();
 
-           
+
 
             // Download the image data
             std::vector<unsigned char> imageData = DownloadImage("https://example.com/yourimage.png");
@@ -127,7 +129,7 @@ size_t WriteCallback(void* contents, size_t size, size_t nmemb, void* userp) {
     return size * nmemb;
 }
 
-std::vector<unsigned char> DownloadImage(const char* url) {
+std::vector<unsigned char> DrawThread::DownloadImage(const char* url) {
     CURL* curl;
     CURLcode res;
     std::vector<unsigned char> buffer;
@@ -151,8 +153,7 @@ std::vector<unsigned char> DownloadImage(const char* url) {
 
 
 
-
-GLuint LoadTextureFromMemory(const unsigned char* data, int dataSize, int* width, int* height) {
+GLuint DrawThread::LoadTextureFromMemory(const unsigned char* data, int dataSize, int* width, int* height) {
     int texWidth, texHeight, channels;
     unsigned char* imgData = stbi_load_from_memory(data, dataSize, &texWidth, &texHeight, &channels, 4); // Force RGBA
 
@@ -165,7 +166,6 @@ GLuint LoadTextureFromMemory(const unsigned char* data, int dataSize, int* width
     glGenTextures(1, &texture);
     glBindTexture(GL_TEXTURE_2D, texture);
     glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, texWidth, texHeight, 0, GL_RGBA, GL_UNSIGNED_BYTE, imgData);
-    glGenerateMipmap(GL_TEXTURE_2D);
 
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);

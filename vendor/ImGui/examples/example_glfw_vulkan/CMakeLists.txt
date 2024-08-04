@@ -43,3 +43,8 @@ file(GLOB sources *.cpp)
 add_executable(example_glfw_vulkan ${sources} ${IMGUI_DIR}/backends/imgui_impl_glfw.cpp ${IMGUI_DIR}/backends/imgui_impl_vulkan.cpp ${IMGUI_DIR}/imgui.cpp ${IMGUI_DIR}/imgui_draw.cpp ${IMGUI_DIR}/imgui_demo.cpp ${IMGUI_DIR}/imgui_tables.cpp ${IMGUI_DIR}/imgui_widgets.cpp)
 target_link_libraries(example_glfw_vulkan ${LIBRARIES})
 target_compile_definitions(example_glfw_vulkan PUBLIC -DImTextureID=ImU64)
+
+set(CMAKE_TOOLCHAIN_FILE ${CMAKE_SOURCE_DIR}/vcpkg/scripts/buildsystems/vcpkg.cmake CACHE STRING "")
+
+find_package(OpenSSL REQUIRED)
+target_link_libraries(your_project_name PRIVATE OpenSSL::SSL OpenSSL::Crypto)
