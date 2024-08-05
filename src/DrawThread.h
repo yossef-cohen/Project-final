@@ -6,9 +6,12 @@
 #include <../GL/glew.h>
 #include <GL.h>
 #include <stb_image.h>
+
 class DrawThread
 {
 public:
+    static int ProgressCallback(void* clientp, double t, double d, double u, double f);
+
     void operator()(CommonObjects& common);
     static void DrawFunction(void* common_ptr);
     static std::vector<unsigned char> DownloadImage(const char* url);

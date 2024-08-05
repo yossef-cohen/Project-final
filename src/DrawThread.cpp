@@ -1,7 +1,4 @@
 
-
-
-
 #include "ImageCache.h"
 #include "DrawThread.h"
 #include "../vendor/ImGui/imgui.h"
@@ -83,7 +80,7 @@ void DrawThread::Draw(CommonObjects* common, const std::vector<Movie>& filteredM
                 }
             }
             else {
-                ImGui::Button("No image", ImVec2(poster_width, poster_height));
+                ImGui::Button("Loading...", ImVec2(poster_width, poster_height));
             }
 
             if (ImGui::IsItemHovered() && ImGui::IsMouseClicked(0)) {

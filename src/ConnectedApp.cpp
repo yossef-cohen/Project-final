@@ -4,6 +4,7 @@
 #include <iostream>
 #include <DownloadThread.h>
 #include <thread>
+#include <curl/system.h>
 
 ConnectedApp::ConnectedApp() {
     Initialize();
@@ -40,7 +41,9 @@ void ConnectedApp::Run() {
     downloadThreadInstance.join();
 }
 
+
 int main() {
+ 
     ConnectedApp app;
     app.Run();
     return 0;

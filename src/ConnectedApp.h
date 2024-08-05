@@ -2,6 +2,7 @@
 #define CONNECTEDAPP_H
 #include "CommonObject.h"
 
+
 class ConnectedApp {
 public:
     ConnectedApp();

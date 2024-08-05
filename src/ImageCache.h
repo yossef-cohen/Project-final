@@ -5,9 +5,20 @@
 #include <iostream>
 #include <curl/curl.h>
 #include "DrawThread.h"
+#include <chrono>
+
+struct DownloadAttempt {
+    int attempts;
+    std::chrono::steady_clock::time_point lastAttempt;
+};
+
+std::unordered_map<std::string, DownloadAttempt> downloadAttempts;
+
+
 
 class ImageCache {
 public:
+ 
     static size_t WriteCallback(void* contents, size_t size, size_t nmemb, void* userp) {
         ((std::vector<unsigned char>*)userp)->insert(
             ((std::vector<unsigned char>*)userp)->end(),
@@ -23,20 +34,34 @@ public:
             return it->second;
         }
 
+        auto& attempt = downloadAttempts[url];
+        auto now = std::chrono::steady_clock::now();
+
+        // Check if we've exceeded max attempts or if we're in cooldown
+        if (attempt.attempts >= 3 ||
+            (attempt.attempts > 0 && std::chrono::duration_cast<std::chrono::seconds>(now - attempt.lastAttempt).count() < 5)) {
+            return 0; // Return 0 to indicate no texture available
+        }
+
         std::vector<unsigned char> imageData = DownloadImage(url.c_str());
         if (imageData.empty()) {
             std::cerr << "Failed to download image: " << url << std::endl;
+            attempt.attempts++;
+            attempt.lastAttempt = now;
             return 0;
         }
 
         int texWidth, texHeight;
         GLuint textureID = LoadTextureFromMemory(imageData.data(), imageData.size(), &texWidth, &texHeight);
         if (textureID == 0) {
-            std::cerr << "Failed to load texture from image data" << std::endl;
+            std::cerr << "Failed to load texture from image data" << url << std::endl;
+            attempt.attempts++;
+            attempt.lastAttempt = now;
             return 0;
         }
 
         cache[url] = textureID;
+        downloadAttempts.erase(url); // Remove from attempts as it succeeded
         return textureID;
     }
 
