@@ -126,6 +126,9 @@ size_t WriteCallback(void* contents, size_t size, size_t nmemb, void* userp) {
 }
 
 std::vector<unsigned char> DrawThread::DownloadImage(const char* url) {
+    std::string server_url = "http://127.0.0.1:8080/image?url=";
+    server_url += url;  // Append the image URL to the server endpoint
+
     CURL* curl;
     CURLcode res;
     std::vector<unsigned char> buffer;
@@ -133,19 +136,13 @@ std::vector<unsigned char> DrawThread::DownloadImage(const char* url) {
     curl_global_init(CURL_GLOBAL_DEFAULT);
     curl = curl_easy_init();
     if (curl) {
-        curl_easy_setopt(curl, CURLOPT_URL, url);
+        curl_easy_setopt(curl, CURLOPT_URL, server_url.c_str());
         curl_easy_setopt(curl, CURLOPT_WRITEFUNCTION, WriteCallback);
         curl_easy_setopt(curl, CURLOPT_WRITEDATA, &buffer);
-
-        // Set the path to the CA certificate bundle if necessary
-        curl_easy_setopt(curl, CURLOPT_CAINFO, "HttpSrc/cacert.pem");
 
         res = curl_easy_perform(curl);
         if (res != CURLE_OK) {
             std::cerr << "curl_easy_perform() failed: " << curl_easy_strerror(res) << std::endl;
-        }
-        else {
-            std::cout << "Image downloaded successfully. Size: " << buffer.size() << " bytes." << std::endl;
         }
 
         curl_easy_cleanup(curl);

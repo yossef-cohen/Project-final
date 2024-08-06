@@ -1,8 +1,8 @@
 #include "DownloadThread.h"
 #define CPPHTTPLIB_OPENSSL_SUPPORT
-#include "httplib.h"
+#include "ServerSide/httplib/httplib.h"
 #include "nlohmann/json.hpp"
-#include "input_with_server.h"
+#include "ServerSide/ServerWithInput.h"
 
 NLOHMANN_DEFINE_TYPE_NON_INTRUSIVE(Movie, Title, Year, Duration, Rating, Genre, Poster, Description);
 

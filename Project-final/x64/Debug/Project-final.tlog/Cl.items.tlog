@@ -2,7 +2,9 @@ C:\Users\dani0\source\repos\Project-final\src\ConnectedApp.cpp;C:\Users\dani0\so
 C:\Users\dani0\source\repos\Project-final\src\DownloadThread.cpp;C:\Users\dani0\source\repos\Project-final\Project-final\x64\Debug\DownloadThread.obj
 C:\Users\dani0\source\repos\Project-final\src\DrawThread.cpp;C:\Users\dani0\source\repos\Project-final\Project-final\x64\Debug\DrawThread.obj
 C:\Users\dani0\source\repos\Project-final\src\GuiMain.cpp;C:\Users\dani0\source\repos\Project-final\Project-final\x64\Debug\GuiMain.obj
-C:\Users\dani0\source\repos\Project-final\src\input_with_server.cpp;C:\Users\dani0\source\repos\Project-final\Project-final\x64\Debug\input_with_server.obj
+C:\Users\dani0\source\repos\Project-final\src\ServerSide\ImageDownloader.cpp;C:\Users\dani0\source\repos\Project-final\Project-final\x64\Debug\ImageDownloader.obj
+C:\Users\dani0\source\repos\Project-final\src\ServerSide\main.cpp;C:\Users\dani0\source\repos\Project-final\Project-final\x64\Debug\main.obj
+C:\Users\dani0\source\repos\Project-final\src\ServerSide\ServerWithInput.cpp;C:\Users\dani0\source\repos\Project-final\Project-final\x64\Debug\ServerWithInput.obj
 C:\Users\dani0\source\repos\Project-final\src\ShaderUtils.cpp;C:\Users\dani0\source\repos\Project-final\Project-final\x64\Debug\ShaderUtils.obj
 C:\Users\dani0\source\repos\Project-final\vendor\ImGui\backends\imgui_impl_dx11.cpp;C:\Users\dani0\source\repos\Project-final\Project-final\x64\Debug\imgui_impl_dx11.obj
 C:\Users\dani0\source\repos\Project-final\vendor\ImGui\backends\imgui_impl_glfw.cpp;C:\Users\dani0\source\repos\Project-final\Project-final\x64\Debug\imgui_impl_glfw.obj

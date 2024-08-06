@@ -1,0 +1,3 @@
+C:/Users/dani0/source/repos/Project-final/src/ServerSide/build/CMakeFiles/server.dir
+C:/Users/dani0/source/repos/Project-final/src/ServerSide/build/CMakeFiles/ALL_BUILD.dir
+C:/Users/dani0/source/repos/Project-final/src/ServerSide/build/CMakeFiles/ZERO_CHECK.dir

@@ -157,7 +157,9 @@ opengl32.lib;glfw3.lib;glfw3dll.lib;glew32.lib;glew32s.lib;%(AdditionalDependenc
     <ClCompile Include="src\DownloadThread.cpp" />
     <ClCompile Include="src\DrawThread.cpp" />
     <ClCompile Include="src\GuiMain.cpp" />
-    <ClCompile Include="src\input_with_server.cpp" />
+    <ClCompile Include="src\ServerSide\ImageDownloader.cpp" />
+    <ClCompile Include="src\ServerSide\main.cpp" />
+    <ClCompile Include="src\ServerSide\ServerWithInput.cpp" />
     <ClCompile Include="src\ShaderUtils.cpp" />
     <ClCompile Include="vendor\ImGui\backends\imgui_impl_dx11.cpp" />
     <ClCompile Include="vendor\ImGui\backends\imgui_impl_glfw.cpp" />
@@ -179,10 +181,11 @@ opengl32.lib;glfw3.lib;glfw3dll.lib;glew32.lib;glew32s.lib;%(AdditionalDependenc
     <ClInclude Include="src\DownloadThread.h" />
     <ClInclude Include="src\DrawThread.h" />
     <ClInclude Include="src\GuiMain.h" />
-    <ClInclude Include="src\httplib.h" />
+    <ClInclude Include="src\ServerSide\httplib\httplib.h" />
     <ClInclude Include="src\ImageCache.h" />
-    <ClInclude Include="src\input_with_server.h" />
-    <ClInclude Include="src\json.hpp" />
+    <ClInclude Include="src\ServerSide\ImageDownloader.h" />
+    <ClInclude Include="src\ServerSide\ServerWithInput.h" />
+    <ClInclude Include="src\ServerSide\json.hpp" />
     <ClInclude Include="src\ShaderUtils.h" />
     <ClInclude Include="src\stb_image.h" />
     <ClInclude Include="vendor\ImGui\backends\imgui_impl_dx11.h" />
@@ -212,7 +215,8 @@ opengl32.lib;glfw3.lib;glfw3dll.lib;glew32.lib;glew32s.lib;%(AdditionalDependenc
     <None Include="imgui.ini" />
     <None Include="libcrypto-3-x64.dll" />
     <None Include="libssl-3-x64.dll" />
-    <None Include="movie_data.json" />
+    <None Include="movies3.json" />
+    <None Include="src\ServerSide\movie_data.json" />
     <None Include="vendor\ImGui\backends\vulkan\glsl_shader.frag" />
     <None Include="vendor\ImGui\backends\vulkan\glsl_shader.vert" />
   </ItemGroup>

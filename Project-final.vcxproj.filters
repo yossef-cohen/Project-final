@@ -42,7 +42,7 @@
     <ClCompile Include="src\DrawThread.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\input_with_server.cpp">
+    <ClCompile Include="src\ServerSide\ServerWithInput.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="vendor\ImGui\misc\cpp\imgui_stdlib.cpp">
@@ -58,6 +58,12 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\ShaderUtils.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\ServerSide\ImageDownloader.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\ServerSide\main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -89,13 +95,13 @@
     <ClInclude Include="src\DrawThread.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\httplib.h">
+    <ClInclude Include="src\ServerSide\httplib\httplib.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\GuiMain.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\input_with_server.h">
+    <ClInclude Include="src\ServerSide\ServerWithInput.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\stb_image.h">
@@ -110,7 +116,7 @@
     <ClInclude Include="vendor\ImGui\backends\imgui_impl_dx11.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\json.hpp">
+    <ClInclude Include="src\ServerSide\json.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="HttpSrc\glew-2.1.0\include\GL\eglew.h">
@@ -140,12 +146,15 @@
     <ClInclude Include="src\ImageCache.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="src\ServerSide\ImageDownloader.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="imgui.ini" />
     <None Include="libssl-3-x64.dll" />
     <None Include="libcrypto-3-x64.dll" />
-    <None Include="movie_data.json" />
+    <None Include="src\ServerSide\movie_data.json" />
     <None Include="HttpSrc\glew-2.1.0\doc\advanced.html" />
     <None Include="HttpSrc\glew-2.1.0\doc\basic.html" />
     <None Include="HttpSrc\glew-2.1.0\doc\build.html" />
@@ -159,5 +168,6 @@
     <None Include="vendor\ImGui\backends\vulkan\glsl_shader.frag" />
     <None Include="vendor\ImGui\backends\vulkan\glsl_shader.vert" />
     <None Include="HttpSrc\cacert.pem" />
+    <None Include="movies3.json" />
   </ItemGroup>
 </Project>

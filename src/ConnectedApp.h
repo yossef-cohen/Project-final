@@ -1,3 +1,4 @@
+#pragma once
 #ifndef CONNECTEDAPP_H
 #define CONNECTEDAPP_H
 #include "CommonObject.h"

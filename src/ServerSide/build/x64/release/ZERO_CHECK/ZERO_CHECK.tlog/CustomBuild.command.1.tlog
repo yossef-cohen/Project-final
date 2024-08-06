@@ -1,0 +1,10 @@
+^C:\USERS\DANI0\SOURCE\REPOS\PROJECT-FINAL\SRC\SERVERSIDE\BUILD\CMAKEFILES\8E18A25B979B0FABE8E936E6EE84266B\GENERATE.STAMP.RULE
+setlocal
+"C:\Program Files\CMake\bin\cmake.exe" -SC:/Users/dani0/source/repos/Project-final/src/ServerSide -BC:/Users/dani0/source/repos/Project-final/src/ServerSide/build --check-stamp-list CMakeFiles/generate.stamp.list --vs-solution-file C:/Users/dani0/source/repos/Project-final/src/ServerSide/build/ServerSide.sln
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal & call :cmErrorLevel %errorlevel% & goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd
