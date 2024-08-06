@@ -1,4 +1,3 @@
-//#include "DownloadThread.h"
 #include <curl/curl.h>
 #include <nlohmann/json.hpp>
 #include <fstream>
@@ -44,6 +43,8 @@ private:
 
                 if (jsonResponse.is_array()) {
                     common.Movies.clear();
+                    const int batch_size = 100;  // Process 100 movies at a time
+                    int count = 0;
                     for (const auto& movieData : jsonResponse) {
                         Movie movie;
                         movie.Title = movieData.value("Title", "");
@@ -55,6 +56,15 @@ private:
                         movie.Poster = movieData.value("Poster", "");
 
                         common.Movies.push_back(movie);
+
+                        ++count;
+                        if (count % batch_size == 0) {
+                            // Add a small delay after processing each batch
+                            std::this_thread::sleep_for(std::chrono::milliseconds(10));
+                        }
+                            // Update the UI to show progress
+                         //   common.loaded_movies_count = count;
+                        
                     }
                     return true;
                 }
@@ -72,6 +82,21 @@ private:
     }
 
     bool downloadAndSaveImage(const Movie& movie) {
+        // Create the "posters" directory if it does not exist
+        std::filesystem::path dir = "posters";
+        if (!std::filesystem::exists(dir)) {
+            std::filesystem::create_directory(dir);
+        }
+
+        // Define the path where the image would be saved
+        std::filesystem::path localImagePath = dir / (movie.Title + ".jpg");
+
+        // Check if the file already exists
+        if (std::filesystem::exists(localImagePath)) {
+            std::cout << "Image for '" << movie.Title << "' already exists. Skipping download." << std::endl;
+            return true;
+        }
+
         CURL* curl;
         CURLcode res;
         std::vector<unsigned char> buffer;
@@ -93,12 +118,6 @@ private:
 
             curl_easy_cleanup(curl);
 
-            std::filesystem::path dir = "posters";
-            if (!std::filesystem::exists(dir)) {
-                std::filesystem::create_directory(dir);
-            }
-
-            std::filesystem::path localImagePath = dir / (movie.Title + ".jpg");
             std::ofstream outfile(localImagePath, std::ios::binary);
             outfile.write(reinterpret_cast<const char*>(buffer.data()), buffer.size());
             outfile.close();
@@ -113,8 +132,35 @@ public:
     void operator()(CommonObjects& common) {
         ServerWithInput server;
         std::jthread server_thread(&ServerWithInput::httpServer, &server);
+
         if (fetchMovieData(common)) {
-                common.data_ready = true;
+            const int batch_size = 50;
+            for (int i = 0; i < common.Movies.size(); ++i) {
+                const auto& movie = common.Movies[i];
+
+                std::filesystem::path localImagePath = std::filesystem::path("posters") / (movie.Title + ".jpg");
+                if (!std::filesystem::exists(localImagePath)) {
+                    if (downloadAndSaveImage(movie)) {
+                        std::cout << "Image downloaded and saved successfully for " << movie.Title << std::endl;
+                    }
+                    else {
+                        std::cerr << "Failed to download and save image for " << movie.Title << std::endl;
+                    }
+                }
+
+                common.loaded_movies_count++;
+
+                // Add a small delay after each request
+                std::this_thread::sleep_for(std::chrono::milliseconds(100));
+
+                // After each batch, give the UI thread a chance to update
+                if ((i + 1) % batch_size == 0 || i == common.Movies.size() - 1) {
+                    std::this_thread::sleep_for(std::chrono::milliseconds(100));
+                }
+            }
+            common.loading_complete = true;
+        }
+        else {
             std::cerr << "Failed to fetch movie data" << std::endl;
         }
     }

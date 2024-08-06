@@ -36,8 +36,8 @@ public:
         auto now = std::chrono::steady_clock::now();
 
         // Check if we've exceeded max attempts or if we're in cooldown
-        if (attempt.attempts >= 3 ||
-            (attempt.attempts > 0 && std::chrono::duration_cast<std::chrono::seconds>(now - attempt.lastAttempt).count() < 5)) {
+        if (attempt.attempts >= 2 ||
+            (attempt.attempts > 0 && std::chrono::duration_cast<std::chrono::seconds>(now - attempt.lastAttempt).count() < 2)) {
             return 0; // Return 0 to indicate no texture available
         }
 

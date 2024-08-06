@@ -11,6 +11,8 @@
 #include <../GL/glew.h>
 #include <GL.h>
 #include <stb_image.h>
+#include <algorithm>
+
 
 void DrawThread::operator()(CommonObjects& common) {
     GuiMain(DrawFunction, &common);
@@ -53,18 +55,21 @@ void DrawThread::DrawFunction(void* common_ptr) {
 void DrawThread::Draw(CommonObjects* common, const std::vector<Movie>& filteredMovies) {
     static ImageCache imageCache;
 
-    if (common->data_ready) {
-        ImGui::BeginChild("ScrollingRegion", ImVec2(0, 0), false, ImGuiWindowFlags_HorizontalScrollbar);
+    ImGui::BeginChild("ScrollingRegion", ImVec2(0, 0), false, ImGuiWindowFlags_HorizontalScrollbar);
+    float window_visible_x2 = ImGui::GetWindowPos().x + ImGui::GetWindowContentRegionMax().x;
+    int movies_per_row = 6;
+    float poster_width = ImGui::GetContentRegionAvail().x / movies_per_row - 10;
+    float poster_height = poster_width * 1.5f;
 
-        float window_visible_x2 = ImGui::GetWindowPos().x + ImGui::GetWindowContentRegionMax().x;
-        int movies_per_row = 6;
-        float poster_width = ImGui::GetContentRegionAvail().x / movies_per_row - 10;
-        float poster_height = poster_width * 1.5f;
-
-        const auto& movies_to_display = filteredMovies.empty() ? common->Movies : filteredMovies;
-
-        for (int i = 0; i < movies_to_display.size(); i++) {
-            const auto& movie = movies_to_display[i];
+    const auto& movies_to_display = filteredMovies.empty() ? common->Movies : filteredMovies;
+    int movies_to_show = std::min<int>(static_cast<int>(movies_to_display.size()), common->loaded_movies_count.load());
+    if (!common->loading_complete) {
+        float progress = static_cast<float>(common->loaded_movies_count) / common->Movies.size();
+        ImGui::ProgressBar(progress, ImVec2(-1, 0));
+        ImGui::Text("Loading... %d / %d", common->loaded_movies_count.load(), common->Movies.size());
+    }
+    for (int i = 0; i < movies_to_show; i++) {
+        const auto& movie = movies_to_display[i];
 
             ImGui::PushID(i);
             if (i % movies_per_row != 0) {
@@ -107,10 +112,11 @@ void DrawThread::Draw(CommonObjects* common, const std::vector<Movie>& filteredM
             if (i + 1 < movies_to_display.size() && next_button_x2 < window_visible_x2) {
                 ImGui::SameLine();
             }
-        }
-
-        ImGui::EndChild();
     }
+
+
+
+    ImGui::EndChild();
 }
 
 std::string DrawThread::toLower(const std::string& str) {

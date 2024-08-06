@@ -1,47 +1,39 @@
 [
   {
-    "Title": "The Greatest Show on Earth",
-    "Year": "2020.0",
-    "Duration": "152.0",
-    "Rating": "6.5",
-    "Genre": "Drama, Family, Romance",
-    "Poster": "https://m.media-amazon.com/images/M/MV5BMzg5MWIyMjItYWMyYS00YTFjLWFlZGMtZTJkNzgyY2VmY2U2XkEyXkFqcGdeQXVyNzE2NDk3NTY@._V1_UY209_CR0,0,140,209_AL_.jpg",
-    "Description": "The dramatic lives of trapeze artists, a clown, and an elephant trainer are told against a background of circus spectacle."
-  },
-  {
-    "Title": "Berserk: Ougon Jidai-hen I - Haou no Tamago",
-    "Year": "2020.0",
-    "Duration": "76.0",
-    "Rating": "7.5",
-    "Genre": "Animation, Action, Adventure",
-    "Poster": "https://m.media-amazon.com/images/M/MV5BYzA0ZGYxYzAtMmJlOC00OTFkLThhNmItYTdlMTdkNDY2NzQ4L2ltYWdlXkEyXkFqcGdeQXVyNTAyODkwOQ@@._V1_UY209_CR3,0,140,209_AL_.jpg",
-    "Description": "A lone sellsword named Guts gets recruited into a mercenary band and attempts to help the Band's leader, Griffith, on his rise to power."
-  },
-  {
-    "Title": "Is-slottet",
-    "Year": "2020.0",
-    "Duration": "78.0",
-    "Rating": "6.5",
-    "Genre": "Mystery, Drama",
-    "Poster": "https://m.media-amazon.com/images/M/MV5BM2U1Mjg1N2UtOGVmYi00MzVhLWFmYzEtNzU3OGY0MjJkOGRiXkEyXkFqcGdeQXVyMDMxMTgwOQ@@._V1_UX140_CR0,0,140,209_AL_.jpg",
-    "Description": "A couple of twelve-year-old Norwegian girls struggle with their intense, taboo relationship during the 1930s."
-  },
-  {
-    "Title": "Loving Pablo",
-    "Year": "2020.0",
-    "Duration": "123.0",
+    "Title": "The Idea of You",
+    "Year": "2023.0",
+    "Duration": "115.0",
     "Rating": "6.4",
-    "Genre": "Biography, Crime, Drama",
-    "Poster": "https://m.media-amazon.com/images/M/MV5BMTAwODJhN2YtMzUwMy00ZjI1LTllNGYtNTA3YTk5MTEyY2M2XkEyXkFqcGdeQXVyMjQ3NzUxOTM@._V1_UY209_CR0,0,140,209_AL_.jpg",
-    "Description": "A journalist strikes up a romantic relationship with notorious drug lord Pablo Escobar."
+    "Genre": "Comedy, Drama, Romance",
+    "Poster": "https://m.media-amazon.com/images/M/MV5BYWRkZjJiODEtM2IwZi00ZjM1LWEyOTUtOThjMDk3YThjZDUzXkEyXkFqcGdeQXVyMTUzMTg2ODkz._V1_UY209_CR0,0,140,209_AL_.jpg",
+    "Description": "Sol\u00e8ne, a 40-year-old single mom, begins an unexpected romance with 24-year-old Hayes Campbell, the lead singer of August Moon, the hottest boy band on the planet."
   },
   {
-    "Title": "Un homme et une femme",
-    "Year": "2020.0",
-    "Duration": "102.0",
-    "Rating": "7.5",
-    "Genre": "Drama, Romance",
-    "Poster": "https://m.media-amazon.com/images/M/MV5BMmE4ZDAyYTUtM2VlZC00ZjFjLWJmZmQtYjM5MTNiNGJmMmY3XkEyXkFqcGdeQXVyMjUzOTY1NTc@._V1_UX140_CR0,0,140,209_AL_.jpg",
-    "Description": "A widow and a widower find their relationship developing into love, but their past tragedies prove hard to overcome, causing them to proceed with utmost delicacy."
+    "Title": "Kingdom of the Planet of the Apes",
+    "Year": "2023.0",
+    "Duration": "145.0",
+    "Rating": "7.3",
+    "Genre": "Action, Adventure, Sci-Fi",
+    "Poster": "https://m.media-amazon.com/images/M/MV5BZGI4NTEwNTAtZDcwMi00MDkxLTg1OGYtNTZmMzE3ZDljNzVlXkEyXkFqcGdeQXVyMTEyMjM2NDc2._V1_UY209_CR0,0,140,209_AL_.jpg",
+    "Description": "Many years after the reign of Caesar, a young ape goes on a journey that will lead him to question everything he's been taught about the past and make choices that will define a future for apes and humans alike."
+  },
+  {
+    "Title": "Unfrosted",
+    "Year": "2023.0",
+    "Duration": "97.0",
+    "Rating": "5.5",
+    "Genre": "Biography, Comedy, History",
+    "Poster": "https://m.media-amazon.com/images/M/MV5BZjIyOTBmNzEtY2YxNC00YzgyLTgxZGYtOWM4NTYwNmZkNzA1XkEyXkFqcGdeQXVyMTkxNjUyNQ@@._V1_UY209_CR0,0,140,209_AL_.jpg",
+    "Description": "In 1963 Michigan, business rivals Kellogg's and Post compete to create a cake that could change breakfast forever."
+  },
+  {
+    "Title": "The Fall Guy",
+    "Year": "2023.0",
+    "Duration": "126.0",
+    "Rating": "7.3",
+    "Genre": "Action, Comedy, Drama",
+    "Poster": "https://m.media-amazon.com/images/M/MV5BMjA5ZjA3ZjMtMzg2ZC00ZDc4LTk3MTctYTE1ZTUzZDIzMjQyXkEyXkFqcGdeQXVyMTM1NjM2ODg1._V1_UX140_CR0,0,140,209_AL_.jpg",
+    "Description": "A down-and-out stuntman must find the missing star of his ex-girlfriend's blockbuster film."
   }
+
 ]
