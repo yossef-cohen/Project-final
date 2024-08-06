@@ -8,11 +8,11 @@ class ConnectedApp {
 public:
     ConnectedApp();
     ~ConnectedApp();
+    CommonObjects commonObjects;
 
     void Run();
 
 private:
-    CommonObjects commonObjects;
     void Initialize();
     void Cleanup();
 };

@@ -19,6 +19,7 @@ void DrawThread::operator()(CommonObjects& common) {
 
 
 
+
 void DrawThread::DrawFunction(void* common_ptr) {
     auto common = static_cast<CommonObjects*>(common_ptr);
     if (!common) {
@@ -125,32 +126,32 @@ size_t WriteCallback(void* contents, size_t size, size_t nmemb, void* userp) {
     return size * nmemb;
 }
 
-std::vector<unsigned char> DrawThread::DownloadImage(const char* url) {
-    std::string server_url = "http://127.0.0.1:8080/image?url=";
-    server_url += url;  // Append the image URL to the server endpoint
-
-    CURL* curl;
-    CURLcode res;
-    std::vector<unsigned char> buffer;
-
-    curl_global_init(CURL_GLOBAL_DEFAULT);
-    curl = curl_easy_init();
-    if (curl) {
-        curl_easy_setopt(curl, CURLOPT_URL, server_url.c_str());
-        curl_easy_setopt(curl, CURLOPT_WRITEFUNCTION, WriteCallback);
-        curl_easy_setopt(curl, CURLOPT_WRITEDATA, &buffer);
-
-        res = curl_easy_perform(curl);
-        if (res != CURLE_OK) {
-            std::cerr << "curl_easy_perform() failed: " << curl_easy_strerror(res) << std::endl;
-        }
-
-        curl_easy_cleanup(curl);
-    }
-    curl_global_cleanup();
-
-    return buffer;
-}
+//std::vector<unsigned char> DrawThread::DownloadImage(const char* url) {
+//    std::string server_url = "http://127.0.0.1:8080/image?url=";
+//    server_url += url;  // Append the image URL to the server endpoint
+//
+//    CURL* curl;
+//    CURLcode res;
+//    std::vector<unsigned char> buffer;
+//
+//    curl_global_init(CURL_GLOBAL_DEFAULT);
+//    curl = curl_easy_init();
+//    if (curl) {
+//        curl_easy_setopt(curl, CURLOPT_URL, server_url.c_str());
+//        curl_easy_setopt(curl, CURLOPT_WRITEFUNCTION, WriteCallback);
+//        curl_easy_setopt(curl, CURLOPT_WRITEDATA, &buffer);
+//
+//        res = curl_easy_perform(curl);
+//        if (res != CURLE_OK) {
+//            std::cerr << "curl_easy_perform() failed: " << curl_easy_strerror(res) << std::endl;
+//        }
+//
+//        curl_easy_cleanup(curl);
+//    }
+//    curl_global_cleanup();
+//
+//    return buffer;
+//}
 
 GLuint DrawThread::LoadTextureFromMemory(const unsigned char* data, int dataSize, int* width, int* height) {
     int texWidth, texHeight, channels;
