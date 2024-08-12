@@ -90,10 +90,11 @@ private:
 
         // Define the path where the image would be saved
         std::filesystem::path localImagePath = dir / (movie.Title + ".jpg");
-
+        
         // Check if the file already exists
         if (std::filesystem::exists(localImagePath)) {
             std::cout << "Image for '" << movie.Title << "' already exists. Skipping download." << std::endl;
+			fflush(stdout);
             return true;
         }
 

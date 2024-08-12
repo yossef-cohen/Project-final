@@ -79,7 +79,7 @@ void DrawThread::Draw(CommonObjects* common, const std::vector<Movie>& filteredM
             ImGui::BeginGroup();
 
             // Get the image from the cache
-            GLuint textureID = imageCache.GetTexture(movie.Poster);
+            GLuint textureID = imageCache.GetTexture(movie.Title);
             if (textureID != 0) {
                 if (ImGui::ImageButton((void*)(intptr_t)textureID, ImVec2(poster_width, poster_height))) {
                     // Handle button click
@@ -158,32 +158,6 @@ size_t WriteCallback(void* contents, size_t size, size_t nmemb, void* userp) {
 //
 //    return buffer;
 //}
-
-GLuint DrawThread::LoadTextureFromMemory(const unsigned char* data, int dataSize, int* width, int* height) {
-    int texWidth, texHeight, channels;
-    unsigned char* imgData = stbi_load_from_memory(data, dataSize, &texWidth, &texHeight, &channels, 4); // Force RGBA
-
-    if (imgData == nullptr) {
-        // Handle error
-        return 0;
-    }
-
-    GLuint texture;
-    glGenTextures(1, &texture);
-    glBindTexture(GL_TEXTURE_2D, texture);
-    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, texWidth, texHeight, 0, GL_RGBA, GL_UNSIGNED_BYTE, imgData);
-
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-
-    stbi_image_free(imgData);
-
-    if (width) *width = texWidth;
-    if (height) *height = texHeight;
-
-    return texture;
-}
+//
 
 
