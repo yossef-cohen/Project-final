@@ -1,5 +1,5 @@
 #include <curl/curl.h>
-#include <nlohmann/json.hpp>
+#include <../src/ServerSide/nlohmann/json.hpp>
 #include <fstream>
 #include <filesystem>
 #include <vector>
@@ -14,8 +14,13 @@
 class DownloadThread {
 private:
     static size_t WriteCallback(void* contents, size_t size, size_t nmemb, std::string* userp) {
-        userp->append((char*)contents, size * nmemb);
-        return size * nmemb;
+        size_t total_size = size * nmemb;
+        if (userp->size() + total_size > userp->max_size() - 1) {
+            std::cerr << "WriteCallback: Potential buffer overflow detected" << std::endl;
+            return 0; // Signal error to libcurl
+        }
+        userp->append((char*)contents, total_size);
+        return total_size;
     }
 
     static size_t WriteImageCallback(void* contents, size_t size, size_t nmemb, std::vector<unsigned char>* buffer) {
@@ -49,7 +54,7 @@ private:
                 nlohmann::json jsonResponse = nlohmann::json::parse(readBuffer);
 
                 if (jsonResponse.is_array()) {
-                    common.Movies.clear();
+                    std::vector<Movie> tempMovies;
                     for (const auto& movieData : jsonResponse) {
                         Movie movie;
                         movie.Title = movieData.value("Title", "");
@@ -60,8 +65,14 @@ private:
                         movie.Description = movieData.value("Description", "");
                         movie.Poster = movieData.value("Poster", "");
 
-                        common.Movies.push_back(movie);
+                        tempMovies.push_back(movie);
                     }
+
+                    {
+                        std::lock_guard<std::mutex> lock(common.movies_mutex);
+                        common.Movies = std::move(tempMovies);
+                    }
+
                     return true;
                 }
                 else {
@@ -74,7 +85,6 @@ private:
                 return false;
             }
         }
-        return false;
     }
 
     bool downloadAndSaveImage(const Movie& movie) {
@@ -86,7 +96,7 @@ private:
         std::filesystem::path localImagePath = dir / (movie.Title + ".jpg");
 
         if (std::filesystem::exists(localImagePath)) {
-            std::cout << "Image for '" << movie.Title << "' already exists. Skipping download." << std::endl;
+           // std::cout << "Image for '" << movie.Title << "' already exists. Skipping download." << std::endl;
             return true;
         }
 
@@ -105,7 +115,7 @@ private:
                 std::ofstream outfile(localImagePath, std::ios::binary);
                 outfile.write(reinterpret_cast<const char*>(buffer.data()), buffer.size());
                 outfile.close();
-                std::cout << "Image saved successfully as '" << localImagePath.string() << "'." << std::endl;
+                //std::cout << "Image saved successfully as '" << localImagePath.string() << "'." << std::endl;
                 return true;
             }
 
@@ -164,10 +174,10 @@ private:
                 std::ofstream outfile(localImagePath, std::ios::binary);
                 outfile.write(reinterpret_cast<const char*>(buffers[i].data()), buffers[i].size());
                 outfile.close();
-                std::cout << "Image saved successfully as '" << localImagePath.string() << "'." << std::endl;
+                //std::cout << "Image saved successfully as '" << localImagePath.string() << "'." << std::endl;
             }
             else {
-                std::cerr << "Failed to download or empty buffer for: " << batch[i].Title << std::endl;
+               // std::cerr << "Failed to download or empty buffer for: " << batch[i].Title << std::endl;
             }
 
             curl_multi_remove_handle(multi_handle, easy_handles[i]);
@@ -180,28 +190,29 @@ private:
 
 public:
     void operator()(CommonObjects& common) {
-        ServerWithInput server;
-        std::jthread server_thread(&ServerWithInput::httpServer, &server);
-
         if (fetchMovieData(common)) {
             const size_t min_batch_size = 100;
             const size_t max_batch_size = 200;
             int successful_downloads = 0;
             int failed_downloads = 0;
 
-            // Random number generator setup
             std::random_device rd;
             std::mt19937 gen(rd());
             std::uniform_int_distribution<> dis(min_batch_size, max_batch_size);
 
-            for (size_t i = 0; i < common.Movies.size(); /* increment inside loop */) {
-                size_t batch_size = dis(gen);  // Random batch size between min_batch_size and max_batch_size
-                size_t batch_end = i + batch_size;
-                if (batch_end > common.Movies.size()) {
-                    batch_end = common.Movies.size();
-                }
+            size_t total_movies;
+            std::vector<Movie> all_movies;
+            {
+                std::lock_guard<std::mutex> lock(common.movies_mutex);
+                total_movies = common.Movies.size();
+                all_movies = common.Movies; // Create a copy to work with
+            }
 
-                std::vector<Movie> batch(common.Movies.begin() + i, common.Movies.begin() + batch_end);
+            for (size_t i = 0; i < total_movies; /* increment inside loop */) {
+                size_t batch_size = dis(gen);
+                size_t batch_end = std::min<size_t>(i + batch_size, total_movies);
+
+                std::vector<Movie> batch(all_movies.begin() + i, all_movies.begin() + batch_end);
 
                 if (downloadBatch(batch)) {
                     successful_downloads += batch.size();
@@ -210,24 +221,20 @@ public:
                     failed_downloads += batch.size();
                 }
 
-                common.loaded_movies_count += batch.size();
+                {
+                    std::lock_guard<std::mutex> lock(common.movies_mutex);
+                    common.loaded_movies_count += batch.size();
+                }
+                i = batch_end;
 
-                float progress = static_cast<float>(common.loaded_movies_count) / common.Movies.size();
-                std::cout << "\rProgress: " << std::fixed << std::setprecision(2) << (progress * 100) << "% "
-                    << "(" << common.loaded_movies_count << "/" << common.Movies.size() << ") "
-                    << "Downloaded: " << successful_downloads << " Failed: " << failed_downloads << std::flush;
-
+                // Add a small delay to prevent CPU hogging
                 std::this_thread::sleep_for(std::chrono::milliseconds(10));
-
-                i = batch_end;  // Move to the next batch
             }
-
-            std::cout << "\nDownload complete. " << successful_downloads << " images downloaded, "
-                << failed_downloads << " failed." << std::endl;
 
             common.loading_complete = true;
         }
         else {
             std::cerr << "Failed to fetch movie data" << std::endl;
         }
-    }};
+    }
+};

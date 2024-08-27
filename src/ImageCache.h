@@ -12,8 +12,12 @@
 class ImageCache {
 public:
     ImageCache() {}
-    ~ImageCache() {}
-
+    ~ImageCache() {
+        std::lock_guard<std::mutex> lock(mutex_);
+        for (auto& pair : cache) {
+            glDeleteTextures(1, &pair.second);
+        }
+    }
     GLuint GetTexture(const std::string& movieTitle) {
         std::lock_guard<std::mutex> lock(mutex_);
 

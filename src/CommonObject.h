@@ -2,6 +2,8 @@
 #include <atomic>
 #include <string>
 #include <vector>
+#include <mutex>
+
 
 struct Movie
 {
@@ -18,6 +20,7 @@ struct CommonObjects
 {
     std::atomic<int> loaded_movies_count{ 0 };
     std::atomic<bool> loading_complete{ false };
+    std::mutex movies_mutex;
     std::atomic_bool data_ready = false;  // Use atomic_bool for thread-safe operations
     std::atomic_bool exit_flag = false;
     std::atomic_bool start_download = false;

@@ -71,8 +71,8 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
-    <IncludePath>C:\Users\dani0\source\repos\Project-final\vendor\ImGui;C:\Users\dani0\source\repos\Project-final\vendor\ImGui\backends</IncludePath>
-    <LibraryPath>C:\Users\dani0\source\repos\Project-final\HttpSrc\glew-2.1.0\lib;$(LibraryPath)</LibraryPath>
+    <IncludePath>$(ProjectDir)\vendor\ImGui;$(ProjectDir)\vendor\ImGui\backends</IncludePath>
+    <LibraryPath>$(ProjectDir)\HttpSrc\glew-2.1.0\lib;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <IncludePath>C:\Users\dani0\source\repos\Project-final\vendor\ImGui;C:\Users\dani0\source\repos\Project-final\vendor\ImGui\backends</IncludePath>
@@ -115,7 +115,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>C:\Users\dani0\source\repos\Project-final\HttpSrc\glew-2.1.0\include\GL;C:\Users\dani0\source\repos\Project-final\openssl-3\x64\include;C:\Users\dani0\source\repos\Project-final\curl-8.8.0_3-win64-mingw\include;C:\Users\dani0\source\repos\Project-final\src;C:\Program Files %28x86%29\Windows Kits\10\Include\10.0.22621.0\um\gl;C:\Users\dani0\source\repos\Project-final\HttpSrc\glfw-3.4.bin.WIN64\glfw-3.4.bin.WIN64\include</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)\HttpSrc\glew-2.1.0\include\GL;$(ProjectDir)\openssl-3\x64\include;$(ProjectDir)\src\ServerSide\curl-8.8.0_3-win64-mingw\include;$(ProjectDir)\src;C:\Program Files %28x86%29\Windows Kits\10\Include\10.0.22621.0\um\gl;$(ProjectDir)\HttpSrc\glfw-3.4.bin.WIN64\glfw-3.4.bin.WIN64\include</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpp20</LanguageStandard>
     </ClCompile>
     <Link>
@@ -126,7 +126,7 @@
 libssl.lib;
 libcurl.dll.a;
 opengl32.lib;glfw3.lib;glfw3dll.lib;glew32.lib;glew32s.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <AdditionalLibraryDirectories>C:\Users\dani0\source\repos\Project-final\HttpSrc\glew-2.1.0\include;C:\Users\dani0\source\repos\Project-final\openssl-3\x64\lib;C:\Users\dani0\source\repos\Project-final\curl-8.8.0_3-win64-mingw\lib;C:\Program Files %28x86%29\Windows Kits\10\Include\10.0.22621.0\um\gl;C:\Users\dani0\source\repos\Project-final\HttpSrc\glfw-3.4.bin.WIN64\glfw-3.4.bin.WIN64\lib-vc2019;C:\Users\dani0\source\repos\Project-final\HttpSrc\glew-2.1.0\lib\Release\x64</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>$(ProjectDir)\HttpSrc\glew-2.1.0\include;$(ProjectDir)\openssl-3\x64\lib;$(ProjectDir)\src\ServerSide\curl-8.8.0_3-win64-mingw\lib;C:\Program Files %28x86%29\Windows Kits\10\Include\10.0.22621.0\um\gl;$(ProjectDir)\HttpSrc\glfw-3.4.bin.WIN64\glfw-3.4.bin.WIN64\lib-vc2019;$(ProjectDir)\HttpSrc\glew-2.1.0\lib\Release\x64</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -138,6 +138,7 @@ opengl32.lib;glfw3.lib;glfw3dll.lib;glew32.lib;glew32s.lib;%(AdditionalDependenc
       <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <AdditionalIncludeDirectories>C:\Users\dani0\source\repos\Project-final\HttpSrc\glew-2.1.0\include\GL;C:\Users\dani0\source\repos\Project-final\openssl-3\x64\include;C:\Users\dani0\source\repos\Project-final\curl-8.8.0_3-win64-mingw\include;C:\Users\dani0\source\repos\Project-final\src;C:\Program Files %28x86%29\Windows Kits\10\Include\10.0.22621.0\um\gl;C:\Users\dani0\source\repos\Project-final\HttpSrc\glfw-3.4.bin.WIN64\glfw-3.4.bin.WIN64\include</AdditionalIncludeDirectories>
+      <LanguageStandard>stdcpp20</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -154,14 +155,12 @@ opengl32.lib;glfw3.lib;glfw3dll.lib;glew32.lib;glew32s.lib;%(AdditionalDependenc
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="src\ConnectedApp.cpp" />
-    <ClCompile Include="src\DownloadThread.cpp" />
     <ClCompile Include="src\DrawThread.cpp" />
     <ClCompile Include="src\GuiMain.cpp" />
     <ClCompile Include="src\ServerSide\ImageDownloader.cpp" />
     <ClCompile Include="src\ServerSide\main.cpp" />
     <ClCompile Include="src\ServerSide\ServerWithInput.cpp" />
     <ClCompile Include="src\ShaderUtils.cpp" />
-    <ClCompile Include="vendor\ImGui\backends\imgui_impl_dx11.cpp" />
     <ClCompile Include="vendor\ImGui\backends\imgui_impl_glfw.cpp" />
     <ClCompile Include="vendor\ImGui\backends\imgui_impl_opengl3.cpp" />
     <ClCompile Include="vendor\ImGui\imgui.cpp" />
@@ -177,20 +176,171 @@ opengl32.lib;glfw3.lib;glfw3dll.lib;glew32.lib;glew32s.lib;%(AdditionalDependenc
     <ClInclude Include="HttpSrc\glew-2.1.0\include\GL\glxew.h" />
     <ClInclude Include="HttpSrc\glew-2.1.0\include\GL\wglew.h" />
     <ClInclude Include="src\CommonObject.h" />
-    <ClInclude Include="src\ConnectedApp.h" />
     <ClInclude Include="src\DownloadThread.h" />
     <ClInclude Include="src\DrawThread.h" />
     <ClInclude Include="src\GuiMain.h" />
+    <ClInclude Include="src\ServerSide\curl-8.8.0_3-win64-mingw\include\brotli\decode.h" />
+    <ClInclude Include="src\ServerSide\curl-8.8.0_3-win64-mingw\include\brotli\encode.h" />
+    <ClInclude Include="src\ServerSide\curl-8.8.0_3-win64-mingw\include\brotli\port.h" />
+    <ClInclude Include="src\ServerSide\curl-8.8.0_3-win64-mingw\include\brotli\shared_dictionary.h" />
+    <ClInclude Include="src\ServerSide\curl-8.8.0_3-win64-mingw\include\brotli\types.h" />
+    <ClInclude Include="src\ServerSide\curl-8.8.0_3-win64-mingw\include\curl\curl.h" />
+    <ClInclude Include="src\ServerSide\curl-8.8.0_3-win64-mingw\include\curl\curlver.h" />
+    <ClInclude Include="src\ServerSide\curl-8.8.0_3-win64-mingw\include\curl\easy.h" />
+    <ClInclude Include="src\ServerSide\curl-8.8.0_3-win64-mingw\include\curl\header.h" />
+    <ClInclude Include="src\ServerSide\curl-8.8.0_3-win64-mingw\include\curl\mprintf.h" />
+    <ClInclude Include="src\ServerSide\curl-8.8.0_3-win64-mingw\include\curl\multi.h" />
+    <ClInclude Include="src\ServerSide\curl-8.8.0_3-win64-mingw\include\curl\options.h" />
+    <ClInclude Include="src\ServerSide\curl-8.8.0_3-win64-mingw\include\curl\stdcheaders.h" />
+    <ClInclude Include="src\ServerSide\curl-8.8.0_3-win64-mingw\include\curl\system.h" />
+    <ClInclude Include="src\ServerSide\curl-8.8.0_3-win64-mingw\include\curl\typecheck-gcc.h" />
+    <ClInclude Include="src\ServerSide\curl-8.8.0_3-win64-mingw\include\curl\urlapi.h" />
+    <ClInclude Include="src\ServerSide\curl-8.8.0_3-win64-mingw\include\curl\websockets.h" />
+    <ClInclude Include="src\ServerSide\curl-8.8.0_3-win64-mingw\include\libpsl.h" />
+    <ClInclude Include="src\ServerSide\curl-8.8.0_3-win64-mingw\include\libssh2.h" />
+    <ClInclude Include="src\ServerSide\curl-8.8.0_3-win64-mingw\include\libssh2_publickey.h" />
+    <ClInclude Include="src\ServerSide\curl-8.8.0_3-win64-mingw\include\libssh2_sftp.h" />
+    <ClInclude Include="src\ServerSide\curl-8.8.0_3-win64-mingw\include\nghttp2\nghttp2.h" />
+    <ClInclude Include="src\ServerSide\curl-8.8.0_3-win64-mingw\include\nghttp2\nghttp2ver.h" />
+    <ClInclude Include="src\ServerSide\curl-8.8.0_3-win64-mingw\include\nghttp3\nghttp3.h" />
+    <ClInclude Include="src\ServerSide\curl-8.8.0_3-win64-mingw\include\nghttp3\version.h" />
+    <ClInclude Include="src\ServerSide\curl-8.8.0_3-win64-mingw\include\ngtcp2\ngtcp2.h" />
+    <ClInclude Include="src\ServerSide\curl-8.8.0_3-win64-mingw\include\ngtcp2\ngtcp2_crypto.h" />
+    <ClInclude Include="src\ServerSide\curl-8.8.0_3-win64-mingw\include\ngtcp2\ngtcp2_crypto_quictls.h" />
+    <ClInclude Include="src\ServerSide\curl-8.8.0_3-win64-mingw\include\ngtcp2\version.h" />
+    <ClInclude Include="src\ServerSide\curl-8.8.0_3-win64-mingw\include\openssl\aes.h" />
+    <ClInclude Include="src\ServerSide\curl-8.8.0_3-win64-mingw\include\openssl\asn1.h" />
+    <ClInclude Include="src\ServerSide\curl-8.8.0_3-win64-mingw\include\openssl\asn1t.h" />
+    <ClInclude Include="src\ServerSide\curl-8.8.0_3-win64-mingw\include\openssl\bio.h" />
+    <ClInclude Include="src\ServerSide\curl-8.8.0_3-win64-mingw\include\openssl\blowfish.h" />
+    <ClInclude Include="src\ServerSide\curl-8.8.0_3-win64-mingw\include\openssl\bn.h" />
+    <ClInclude Include="src\ServerSide\curl-8.8.0_3-win64-mingw\include\openssl\buffer.h" />
+    <ClInclude Include="src\ServerSide\curl-8.8.0_3-win64-mingw\include\openssl\camellia.h" />
+    <ClInclude Include="src\ServerSide\curl-8.8.0_3-win64-mingw\include\openssl\cast.h" />
+    <ClInclude Include="src\ServerSide\curl-8.8.0_3-win64-mingw\include\openssl\chacha.h" />
+    <ClInclude Include="src\ServerSide\curl-8.8.0_3-win64-mingw\include\openssl\cmac.h" />
+    <ClInclude Include="src\ServerSide\curl-8.8.0_3-win64-mingw\include\openssl\cms.h" />
+    <ClInclude Include="src\ServerSide\curl-8.8.0_3-win64-mingw\include\openssl\comp.h" />
+    <ClInclude Include="src\ServerSide\curl-8.8.0_3-win64-mingw\include\openssl\conf.h" />
+    <ClInclude Include="src\ServerSide\curl-8.8.0_3-win64-mingw\include\openssl\conf_api.h" />
+    <ClInclude Include="src\ServerSide\curl-8.8.0_3-win64-mingw\include\openssl\crypto.h" />
+    <ClInclude Include="src\ServerSide\curl-8.8.0_3-win64-mingw\include\openssl\ct.h" />
+    <ClInclude Include="src\ServerSide\curl-8.8.0_3-win64-mingw\include\openssl\curve25519.h" />
+    <ClInclude Include="src\ServerSide\curl-8.8.0_3-win64-mingw\include\openssl\des.h" />
+    <ClInclude Include="src\ServerSide\curl-8.8.0_3-win64-mingw\include\openssl\dh.h" />
+    <ClInclude Include="src\ServerSide\curl-8.8.0_3-win64-mingw\include\openssl\dsa.h" />
+    <ClInclude Include="src\ServerSide\curl-8.8.0_3-win64-mingw\include\openssl\dtls1.h" />
+    <ClInclude Include="src\ServerSide\curl-8.8.0_3-win64-mingw\include\openssl\ec.h" />
+    <ClInclude Include="src\ServerSide\curl-8.8.0_3-win64-mingw\include\openssl\ecdh.h" />
+    <ClInclude Include="src\ServerSide\curl-8.8.0_3-win64-mingw\include\openssl\ecdsa.h" />
+    <ClInclude Include="src\ServerSide\curl-8.8.0_3-win64-mingw\include\openssl\engine.h" />
+    <ClInclude Include="src\ServerSide\curl-8.8.0_3-win64-mingw\include\openssl\err.h" />
+    <ClInclude Include="src\ServerSide\curl-8.8.0_3-win64-mingw\include\openssl\evp.h" />
+    <ClInclude Include="src\ServerSide\curl-8.8.0_3-win64-mingw\include\openssl\hkdf.h" />
+    <ClInclude Include="src\ServerSide\curl-8.8.0_3-win64-mingw\include\openssl\hmac.h" />
+    <ClInclude Include="src\ServerSide\curl-8.8.0_3-win64-mingw\include\openssl\idea.h" />
+    <ClInclude Include="src\ServerSide\curl-8.8.0_3-win64-mingw\include\openssl\kdf.h" />
+    <ClInclude Include="src\ServerSide\curl-8.8.0_3-win64-mingw\include\openssl\lhash.h" />
+    <ClInclude Include="src\ServerSide\curl-8.8.0_3-win64-mingw\include\openssl\md4.h" />
+    <ClInclude Include="src\ServerSide\curl-8.8.0_3-win64-mingw\include\openssl\md5.h" />
+    <ClInclude Include="src\ServerSide\curl-8.8.0_3-win64-mingw\include\openssl\modes.h" />
+    <ClInclude Include="src\ServerSide\curl-8.8.0_3-win64-mingw\include\openssl\objects.h" />
+    <ClInclude Include="src\ServerSide\curl-8.8.0_3-win64-mingw\include\openssl\obj_mac.h" />
+    <ClInclude Include="src\ServerSide\curl-8.8.0_3-win64-mingw\include\openssl\ocsp.h" />
+    <ClInclude Include="src\ServerSide\curl-8.8.0_3-win64-mingw\include\openssl\opensslconf.h" />
+    <ClInclude Include="src\ServerSide\curl-8.8.0_3-win64-mingw\include\openssl\opensslfeatures.h" />
+    <ClInclude Include="src\ServerSide\curl-8.8.0_3-win64-mingw\include\openssl\opensslv.h" />
+    <ClInclude Include="src\ServerSide\curl-8.8.0_3-win64-mingw\include\openssl\ossl_typ.h" />
+    <ClInclude Include="src\ServerSide\curl-8.8.0_3-win64-mingw\include\openssl\pem.h" />
+    <ClInclude Include="src\ServerSide\curl-8.8.0_3-win64-mingw\include\openssl\pem2.h" />
+    <ClInclude Include="src\ServerSide\curl-8.8.0_3-win64-mingw\include\openssl\pkcs12.h" />
+    <ClInclude Include="src\ServerSide\curl-8.8.0_3-win64-mingw\include\openssl\pkcs7.h" />
+    <ClInclude Include="src\ServerSide\curl-8.8.0_3-win64-mingw\include\openssl\poly1305.h" />
+    <ClInclude Include="src\ServerSide\curl-8.8.0_3-win64-mingw\include\openssl\posix_time.h" />
+    <ClInclude Include="src\ServerSide\curl-8.8.0_3-win64-mingw\include\openssl\rand.h" />
+    <ClInclude Include="src\ServerSide\curl-8.8.0_3-win64-mingw\include\openssl\rc2.h" />
+    <ClInclude Include="src\ServerSide\curl-8.8.0_3-win64-mingw\include\openssl\rc4.h" />
+    <ClInclude Include="src\ServerSide\curl-8.8.0_3-win64-mingw\include\openssl\ripemd.h" />
+    <ClInclude Include="src\ServerSide\curl-8.8.0_3-win64-mingw\include\openssl\rsa.h" />
+    <ClInclude Include="src\ServerSide\curl-8.8.0_3-win64-mingw\include\openssl\safestack.h" />
+    <ClInclude Include="src\ServerSide\curl-8.8.0_3-win64-mingw\include\openssl\sha.h" />
+    <ClInclude Include="src\ServerSide\curl-8.8.0_3-win64-mingw\include\openssl\sm3.h" />
+    <ClInclude Include="src\ServerSide\curl-8.8.0_3-win64-mingw\include\openssl\sm4.h" />
+    <ClInclude Include="src\ServerSide\curl-8.8.0_3-win64-mingw\include\openssl\srtp.h" />
+    <ClInclude Include="src\ServerSide\curl-8.8.0_3-win64-mingw\include\openssl\ssl.h" />
+    <ClInclude Include="src\ServerSide\curl-8.8.0_3-win64-mingw\include\openssl\ssl2.h" />
+    <ClInclude Include="src\ServerSide\curl-8.8.0_3-win64-mingw\include\openssl\ssl23.h" />
+    <ClInclude Include="src\ServerSide\curl-8.8.0_3-win64-mingw\include\openssl\ssl3.h" />
+    <ClInclude Include="src\ServerSide\curl-8.8.0_3-win64-mingw\include\openssl\stack.h" />
+    <ClInclude Include="src\ServerSide\curl-8.8.0_3-win64-mingw\include\openssl\tls1.h" />
+    <ClInclude Include="src\ServerSide\curl-8.8.0_3-win64-mingw\include\openssl\ts.h" />
+    <ClInclude Include="src\ServerSide\curl-8.8.0_3-win64-mingw\include\openssl\txt_db.h" />
+    <ClInclude Include="src\ServerSide\curl-8.8.0_3-win64-mingw\include\openssl\ui.h" />
+    <ClInclude Include="src\ServerSide\curl-8.8.0_3-win64-mingw\include\openssl\ui_compat.h" />
+    <ClInclude Include="src\ServerSide\curl-8.8.0_3-win64-mingw\include\openssl\whrlpool.h" />
+    <ClInclude Include="src\ServerSide\curl-8.8.0_3-win64-mingw\include\openssl\x509.h" />
+    <ClInclude Include="src\ServerSide\curl-8.8.0_3-win64-mingw\include\openssl\x509v3.h" />
+    <ClInclude Include="src\ServerSide\curl-8.8.0_3-win64-mingw\include\openssl\x509_vfy.h" />
+    <ClInclude Include="src\ServerSide\curl-8.8.0_3-win64-mingw\include\zconf.h" />
+    <ClInclude Include="src\ServerSide\curl-8.8.0_3-win64-mingw\include\zdict.h" />
+    <ClInclude Include="src\ServerSide\curl-8.8.0_3-win64-mingw\include\zlib.h" />
+    <ClInclude Include="src\ServerSide\curl-8.8.0_3-win64-mingw\include\zstd.h" />
+    <ClInclude Include="src\ServerSide\curl-8.8.0_3-win64-mingw\include\zstd_errors.h" />
     <ClInclude Include="src\ServerSide\httplib\httplib.h" />
     <ClInclude Include="src\ImageCache.h" />
     <ClInclude Include="src\ServerSide\ImageDownloader.h" />
+    <ClInclude Include="src\ServerSide\nlohmann\adl_serializer.hpp" />
+    <ClInclude Include="src\ServerSide\nlohmann\byte_container_with_subtype.hpp" />
+    <ClInclude Include="src\ServerSide\nlohmann\detail\abi_macros.hpp" />
+    <ClInclude Include="src\ServerSide\nlohmann\detail\conversions\from_json.hpp" />
+    <ClInclude Include="src\ServerSide\nlohmann\detail\conversions\to_chars.hpp" />
+    <ClInclude Include="src\ServerSide\nlohmann\detail\conversions\to_json.hpp" />
+    <ClInclude Include="src\ServerSide\nlohmann\detail\exceptions.hpp" />
+    <ClInclude Include="src\ServerSide\nlohmann\detail\hash.hpp" />
+    <ClInclude Include="src\ServerSide\nlohmann\detail\input\binary_reader.hpp" />
+    <ClInclude Include="src\ServerSide\nlohmann\detail\input\input_adapters.hpp" />
+    <ClInclude Include="src\ServerSide\nlohmann\detail\input\json_sax.hpp" />
+    <ClInclude Include="src\ServerSide\nlohmann\detail\input\lexer.hpp" />
+    <ClInclude Include="src\ServerSide\nlohmann\detail\input\parser.hpp" />
+    <ClInclude Include="src\ServerSide\nlohmann\detail\input\position_t.hpp" />
+    <ClInclude Include="src\ServerSide\nlohmann\detail\iterators\internal_iterator.hpp" />
+    <ClInclude Include="src\ServerSide\nlohmann\detail\iterators\iteration_proxy.hpp" />
+    <ClInclude Include="src\ServerSide\nlohmann\detail\iterators\iterator_traits.hpp" />
+    <ClInclude Include="src\ServerSide\nlohmann\detail\iterators\iter_impl.hpp" />
+    <ClInclude Include="src\ServerSide\nlohmann\detail\iterators\json_reverse_iterator.hpp" />
+    <ClInclude Include="src\ServerSide\nlohmann\detail\iterators\primitive_iterator.hpp" />
+    <ClInclude Include="src\ServerSide\nlohmann\detail\json_custom_base_class.hpp" />
+    <ClInclude Include="src\ServerSide\nlohmann\detail\json_pointer.hpp" />
+    <ClInclude Include="src\ServerSide\nlohmann\detail\json_ref.hpp" />
+    <ClInclude Include="src\ServerSide\nlohmann\detail\macro_scope.hpp" />
+    <ClInclude Include="src\ServerSide\nlohmann\detail\macro_unscope.hpp" />
+    <ClInclude Include="src\ServerSide\nlohmann\detail\meta\call_std\begin.hpp" />
+    <ClInclude Include="src\ServerSide\nlohmann\detail\meta\call_std\end.hpp" />
+    <ClInclude Include="src\ServerSide\nlohmann\detail\meta\cpp_future.hpp" />
+    <ClInclude Include="src\ServerSide\nlohmann\detail\meta\detected.hpp" />
+    <ClInclude Include="src\ServerSide\nlohmann\detail\meta\identity_tag.hpp" />
+    <ClInclude Include="src\ServerSide\nlohmann\detail\meta\is_sax.hpp" />
+    <ClInclude Include="src\ServerSide\nlohmann\detail\meta\std_fs.hpp" />
+    <ClInclude Include="src\ServerSide\nlohmann\detail\meta\type_traits.hpp" />
+    <ClInclude Include="src\ServerSide\nlohmann\detail\meta\void_t.hpp" />
+    <ClInclude Include="src\ServerSide\nlohmann\detail\output\binary_writer.hpp" />
+    <ClInclude Include="src\ServerSide\nlohmann\detail\output\output_adapters.hpp" />
+    <ClInclude Include="src\ServerSide\nlohmann\detail\output\serializer.hpp" />
+    <ClInclude Include="src\ServerSide\nlohmann\detail\string_concat.hpp" />
+    <ClInclude Include="src\ServerSide\nlohmann\detail\string_escape.hpp" />
+    <ClInclude Include="src\ServerSide\nlohmann\detail\value_t.hpp" />
+    <ClInclude Include="src\ServerSide\nlohmann\json.hpp" />
+    <ClInclude Include="src\ServerSide\nlohmann\json_fwd.hpp" />
+    <ClInclude Include="src\ServerSide\nlohmann\ordered_map.hpp" />
+    <ClInclude Include="src\ServerSide\nlohmann\thirdparty\hedley\hedley.hpp" />
+    <ClInclude Include="src\ServerSide\nlohmann\thirdparty\hedley\hedley_undef.hpp" />
     <ClInclude Include="src\ServerSide\ServerWithInput.h" />
     <ClInclude Include="src\ServerSide\json.hpp" />
     <ClInclude Include="src\ShaderUtils.h" />
     <ClInclude Include="src\stb_image.h" />
-    <ClInclude Include="vendor\ImGui\backends\imgui_impl_dx11.h" />
     <ClInclude Include="vendor\ImGui\backends\imgui_impl_glfw.h" />
     <ClInclude Include="vendor\ImGui\backends\imgui_impl_opengl3.h" />
+    <ClInclude Include="vendor\ImGui\backends\imgui_impl_opengl3_loader.h" />
     <ClInclude Include="vendor\ImGui\imconfig.h" />
     <ClInclude Include="vendor\ImGui\imgui.h" />
     <ClInclude Include="vendor\ImGui\imgui_internal.h" />
@@ -215,10 +365,18 @@ opengl32.lib;glfw3.lib;glfw3dll.lib;glew32.lib;glew32s.lib;%(AdditionalDependenc
     <None Include="imgui.ini" />
     <None Include="libcrypto-3-x64.dll" />
     <None Include="libssl-3-x64.dll" />
-    <None Include="movies3.json" />
-    <None Include="src\ServerSide\movie_data.json" />
+    <None Include="src\ServerSide\build\cmake_install.cmake" />
+    <None Include="src\ServerSide\build\Release\libcurl-x64 (1).dll" />
+    <None Include="src\ServerSide\build\Release\movie_data.json" />
+    <None Include="src\ServerSide\build\Release\server.exe" />
+    <None Include="src\ServerSide\build\Release\ServerWithInput.exe" />
+    <None Include="src\ServerSide\curl-8.8.0_3-win64-mingw\bin\libcurl-x64.def" />
     <None Include="vendor\ImGui\backends\vulkan\glsl_shader.frag" />
     <None Include="vendor\ImGui\backends\vulkan\glsl_shader.vert" />
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="src\ServerSide\build\CMakeCache.txt" />
+    <Text Include="src\ServerSide\CMakeLists.txt" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

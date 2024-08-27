@@ -9,7 +9,14 @@ int GuiMain(void (*drawFunction)(void*), void* objPtr) {
         return -1;
     }
 
-    GLFWwindow* window = glfwCreateWindow(1280, 800, "Blockbuster", nullptr, nullptr);
+    // Get the primary monitor
+    GLFWmonitor* primaryMonitor = glfwGetPrimaryMonitor();
+
+    // Get the video mode of the primary monitor
+    const GLFWvidmode* mode = glfwGetVideoMode(primaryMonitor);
+
+    // Create a fullscreen window
+    GLFWwindow* window = glfwCreateWindow(mode->width, mode->height, "Blockbuster", nullptr, nullptr);
     if (window == nullptr) {
         std::cerr << "Failed to create GLFW window" << std::endl;
         glfwTerminate();
@@ -35,7 +42,7 @@ int GuiMain(void (*drawFunction)(void*), void* objPtr) {
         return -1;
     }
     ApplyCustomStyle();
-
+    try {
     while (!glfwWindowShouldClose(window)) {
         glfwPollEvents();
 
@@ -44,7 +51,17 @@ int GuiMain(void (*drawFunction)(void*), void* objPtr) {
         ImGui::NewFrame();
 
         // Call the draw function
-        drawFunction(objPtr);
+        try {
+            drawFunction(objPtr);
+        }
+        catch (const std::length_error& e) {
+            std::cerr << "std::length_error caught in draw function: " << e.what() << std::endl;
+            // Optionally break the loop or handle the error
+        }
+        catch (const std::exception& e) {
+            std::cerr << "Exception caught in draw function: " << e.what() << std::endl;
+            // Optionally break the loop or handle the error
+        }
 
         ImGui::Render();
         int display_w, display_h;
@@ -61,6 +78,11 @@ int GuiMain(void (*drawFunction)(void*), void* objPtr) {
 
         glfwSwapBuffers(window);
     }
+    }
+
+catch (const std::exception& e) {
+    std::cerr << "Exception caught in main loop: " << e.what() << std::endl;
+}
 
     ImGui_ImplOpenGL3_Shutdown();
     ImGui_ImplGlfw_Shutdown();
