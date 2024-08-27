@@ -14,7 +14,7 @@
 
 
 int main() {
-    CommonObjects commonObjects; //object struct
+    CommonObjects commonObjects; //object
     try{
  STARTUPINFOW si = { sizeof(si) };
     PROCESS_INFORMATION pi;
